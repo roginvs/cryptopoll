@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#ifndef __wasm__
+
 static inline void *padd(void *p, size_t i)
 {
     return (char *)p + i;
@@ -48,6 +50,15 @@ void generate_random_bytes_thread_safe(size_t n, void *result)
         err(EXIT_FAILURE, "close /dev/urandom");
     }
 }
+
+#else
+
+extern "C"
+{
+    extern void generate_random_bytes_thread_safe(size_t n, void *result);
+}
+
+#endif
 
 static inline bool less32(const unsigned char *k0, const unsigned char *k1)
 {

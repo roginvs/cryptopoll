@@ -42,7 +42,7 @@ done
 
 echo "Linking"
 /home/vasilii/wasi-sdk-21.0/bin/clang++ $OBJECT_FILES  \
-  -Wl,--allow-undefined,--stack-first \
+  -Wl,--allow-undefined,--stack-first,--no-entry \
   --sysroot /home/vasilii/wasi-sdk-21.0/share/wasi-sysroot \
   -o build/main.wasm
 
