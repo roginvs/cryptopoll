@@ -22,7 +22,7 @@ crypto-ops-data.cpp
 rctCryptoOps.cpp
 crypto-ops.cpp
 rctOps.cpp
-main.cpp
+demo.cpp
 rctSigs.cpp
 crypto_verify_32.cpp
 memwipe.cpp
