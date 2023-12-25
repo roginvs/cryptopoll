@@ -5,31 +5,34 @@ import assert from "node:assert";
 import { B, ge_frombytes, ge_tobytes, point_power } from "./ed25519.mjs";
 import { getRandomValues } from "./getRandomValues.mjs";
 
-test("MLSAG_Gen", () => {
-  const cols = 3;
-  const rows = 1;
-  const dsRows = 1;
-  const index = 2;
+for (const cols of [2, 3, 4]) {
+  for (const index of new Array(cols).fill(0).map((_, i) => i)) {
+    for (const rows of [1, 2, 3]) {
+      for (const dsRows of [rows]) {
+        test(`MLSAG_Gen cols=${cols} index=${index} rows=${rows} dsRows=${rows}`, () => {
+          const message = new Uint8Array(32);
+          getRandomValues(message);
 
-  const message = new Uint8Array(32);
-  getRandomValues(message);
+          const allPrivateKeys = new Array(cols).fill([]).map(() =>
+            new Array(rows).fill(new Uint8Array(0)).map(() => {
+              const x = new Uint8Array(32);
+              getRandomValues(x);
+              return x;
+            })
+          );
+          const allPublicKeys = allPrivateKeys.map((vec) =>
+            vec.map((pk) => {
+              return ge_tobytes(point_power(B, array_to_bigint_LE(pk)));
+            })
+          );
 
-  const allPrivateKeys = new Array(cols).fill([]).map(() =>
-    new Array(rows).fill(new Uint8Array(0)).map(() => {
-      const x = new Uint8Array(32);
-      getRandomValues(x);
-      return x;
-    })
-  );
-  const allPublicKeys = allPrivateKeys.map((vec) =>
-    vec.map((pk) => {
-      return ge_tobytes(point_power(B, array_to_bigint_LE(pk)));
-    })
-  );
+          const xx = allPrivateKeys[index];
 
-  const xx = allPrivateKeys[index];
+          const sig = MLSAG_Gen(message, allPublicKeys, xx, index, dsRows);
 
-  const sig = MLSAG_Gen(message, allPublicKeys, xx, index, dsRows);
-
-  assert.ok(MLSAG_Ver(message, allPublicKeys, sig, dsRows));
-});
+          assert.ok(MLSAG_Ver(message, allPublicKeys, sig, dsRows));
+        });
+      }
+    }
+  }
+}
