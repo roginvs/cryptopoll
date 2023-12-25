@@ -11,7 +11,9 @@ done
 if [ -f build/main.bin ]; then
   rm build/main.bin
 fi
-
+if [ -f build/main.wasm ]; then
+  rm build/main.wasm
+fi
 
 FILES="crypto.cpp
 hwdev.cpp
