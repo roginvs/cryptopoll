@@ -8,7 +8,7 @@ import { getRandomValues } from "./getRandomValues.mjs";
 for (const cols of [2, 3, 4]) {
   for (const index of new Array(cols).fill(0).map((_, i) => i)) {
     for (const rows of [1, 2, 3]) {
-      for (const dsRows of [rows]) {
+      for (const dsRows of new Array(rows).fill(0).map((_, i) => i)) {
         test(`MLSAG_Gen cols=${cols} index=${index} rows=${rows} dsRows=${rows}`, () => {
           const message = new Uint8Array(32);
           getRandomValues(message);

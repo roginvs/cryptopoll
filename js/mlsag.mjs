@@ -201,10 +201,12 @@ export function MLSAG_Gen(message, pk, xx, index, dsRows) {
   const ndsRows = 3 * dsRows; // non Double Spendable Rows (see identity chains paper)
   for (let i = dsRows; i < rows; i++) {
     const ii = i - dsRows;
-    throw new Error("TODO");
-    // skpkGen(alpha[i], aG[i]); // need to save alphas for later..
-    // toHash[ndsRows + 2 * ii + 1] = pk[index][i];
-    // toHash[ndsRows + 2 * ii + 2] = aG[i];
+
+    getRandomValues(alpha[i]);
+    aG[i] = ge_tobytes(point_power(B, array_to_bigint_LE(alpha[i])));
+
+    toHash[ndsRows + 2 * ii + 1] = pk[index][i];
+    toHash[ndsRows + 2 * ii + 2] = aG[i];
   }
 
   let c_old = array_to_bigint_LE(hash_arrays(toHash)) % L;
@@ -242,10 +244,14 @@ export function MLSAG_Gen(message, pk, xx, index, dsRows) {
 
     for (let j = dsRows; j < rows; j++) {
       const ii = j - dsRows;
-      throw new Error(`TODO`);
-      //addKeys2(L, rv.ss[i][j], c_old, pk[i][j]);
-      //toHash[ndsRows + 2 * ii + 1] = pk[i][j];
-      //toHash[ndsRows + 2 * ii + 2] = L;
+      const L = ge_tobytes(
+        point_add(
+          point_power(B, array_to_bigint_LE(rv.ss[i][j])),
+          point_power(ge_frombytes(pk[i][j]), c_old)
+        )
+      );
+      toHash[ndsRows + 2 * ii + 1] = pk[i][j];
+      toHash[ndsRows + 2 * ii + 2] = L;
     }
     c_old = array_to_bigint_LE(hash_arrays(toHash)) % L;
     i = (i + 1) % cols;
