@@ -1,39 +1,35 @@
 #ifndef MISC_LANGUAGE_H
 #define MISC_LANGUAGE_H
 
-#include <boost/shared_ptr.hpp>
+#include <functional>
+#include <memory>
 
-struct call_befor_die_base
+// Define a class that will call a given function when leaving scope.
+class ScopeLeaveHandler
 {
-    virtual ~call_befor_die_base() {}
+public:
+    // The constructor takes a std::function<void()> which is the function to be called on scope exit.
+    explicit ScopeLeaveHandler(std::function<void()> onScopeLeave)
+        : onScopeLeave_(onScopeLeave) {}
+
+    // The destructor calls the function.
+    ~ScopeLeaveHandler()
+    {
+        onScopeLeave_();
+    }
+
+    // Delete copy constructor and assignment operator to prevent copying.
+    ScopeLeaveHandler(const ScopeLeaveHandler &) = delete;
+    ScopeLeaveHandler &operator=(const ScopeLeaveHandler &) = delete;
+
+private:
+    std::function<void()> onScopeLeave_;
 };
 
-typedef boost::shared_ptr<call_befor_die_base> auto_scope_leave_caller;
-
-template <class t_scope_leave_handler>
-struct call_befor_die : public call_befor_die_base
+// create_scope_leave_handler is a function that creates a ScopeLeaveHandler.
+auto create_scope_leave_handler(std::function<void()> onScopeLeave)
 {
-    t_scope_leave_handler m_func;
-    call_befor_die(t_scope_leave_handler f) : m_func(f)
-    {
-    }
-    ~call_befor_die()
-    {
-        try
-        {
-            m_func();
-        }
-        catch (...)
-        { /* ignore */
-        }
-    }
-};
-
-template <class t_scope_leave_handler>
-auto_scope_leave_caller create_scope_leave_handler(t_scope_leave_handler f)
-{
-    auto_scope_leave_caller slc(new call_befor_die<t_scope_leave_handler>(f));
-    return slc;
+    return std::make_unique<ScopeLeaveHandler>(onScopeLeave);
 }
 
 #endif
