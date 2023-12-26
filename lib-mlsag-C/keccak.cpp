@@ -8,10 +8,12 @@
 #include "int-util.h"
 #include "hash-ops.h"
 #include "keccak.h"
+#include <stdexcept>
 
 static void local_abort(const char *msg)
 {
-    fprintf(stderr, "%s\n", msg);
+    // fprintf(stderr, "%s\n", msg);
+    throw std::runtime_error(msg);
 #ifdef NDEBUG
     _exit(1);
 #else
