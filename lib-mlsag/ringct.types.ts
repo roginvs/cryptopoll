@@ -1,20 +1,15 @@
-export interface SerializedMLSAG {
-  ss: string[][];
-  cc: string;
-  II: string[];
-}
-export interface SerializedMLSAGFull extends SerializedMLSAG {
-  messageHash: string;
-  publicKeys: string[][];
+export interface MLSAG_Signature<
+  T extends string | Uint8Array = string | Uint8Array
+> {
+  ss: T[][];
+  cc: T;
+  II: T[];
 }
 
-export interface SerializedbLSAG {
-  ss: string[];
-  cc: string;
-  /** This is key image */
-  II: string;
-}
-export interface SerializedbLSAGFull extends SerializedMLSAG {
-  messageHash: string;
-  publicKeys: string[];
+export interface LSAG_Signature<
+  T extends string | Uint8Array = string | Uint8Array
+> {
+  ss: T[];
+  cc: T;
+  II: T;
 }

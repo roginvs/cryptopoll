@@ -1,11 +1,14 @@
 import fs from "fs";
 import test from "node:test";
 import assert from "node:assert";
-import { MLSAG_Ver_Serialized } from "./ringct.mjs";
+import { MLSAG_Verify } from "./ringct.mjs";
 
-const testData = JSON.parse(fs.readFileSync("./ringct.testdata.json").toString());
-for (const [index, sig] of testData.entries()) {
+const testData = JSON.parse(
+  fs.readFileSync("./ringct.testdata.json").toString()
+);
+for (const [index, testDataItem] of testData.entries()) {
   test(`Signature ${index}`, () => {
-    assert.ok(MLSAG_Ver_Serialized(sig));
+    const { messageHash, publicKeys, ...signature } = testDataItem;
+    assert.ok(MLSAG_Verify(messageHash, publicKeys, signature));
   });
 }
