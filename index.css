@@ -81,3 +81,31 @@ html {
 .welcome_container .buttons .button:nth-child(1) {
   margin-right: 20px;
 }
+
+.learn_more {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes learn_more_arrow_animation {
+  0% {
+    transform: scaleX(70%) translateY(-10px) rotate(45deg);
+  }
+  100% {
+    transform: scaleX(60%) translateY(0px) rotate(45deg);
+  }
+}
+.learn_more_arrow {
+  border-right: 5px white solid;
+  border-bottom: 5px white solid;
+  height: 40px;
+  width: 40px;
+  /* transform: scaleX(80%) rotate(45deg); */
+  animation-name: learn_more_arrow_animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease;
+}
