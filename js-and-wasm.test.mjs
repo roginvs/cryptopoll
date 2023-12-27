@@ -56,6 +56,11 @@ for (const keyLen of [3, 4, 5]) {
 
       assert.strictEqual(result, true);
 
+      assert.ok(wasm.LSAG_Verify(messageAddr, keyLen, pubkeysAddrs, sigAddr));
+      assert.ok(
+        !wasm.LSAG_Verify(messageAddr + 1, keyLen, pubkeysAddrs, sigAddr)
+      );
+
       wasm.free_keys(sigAddr);
       wasm.free_keys(pubkeysAddrs);
       wasm.free_keys(privAddr);
