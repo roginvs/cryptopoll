@@ -50,3 +50,4 @@ echo "Compilation is done"
 
 wasm2wat --enable-all --inline-imports --fold-exprs --inline-exports build/main.wasm | grep import
 
+cp build/main.wasm ../lib.wasm
