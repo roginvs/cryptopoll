@@ -11,9 +11,22 @@ void free_keys(key *p) __attribute__((export_name("free_keys")))
     delete[] p;
 }
 
+/*
 bool wasm_MLSAG_Ver(const key &message, const keyM &pk, const mgSig &sig, size_t dsRows)
 {
     return MLSAG_Ver(message, pk, sig, dsRows);
+}
+*/
+
+void wasm_skGen(key *sk) __attribute__((export_name("skGen")))
+{
+    skGen(*sk);
+};
+
+void wasm_scalarmultBase(key *aG, const key *a) __attribute__((export_name("scalarmultBase")))
+{
+
+    scalarmultBase(*aG, *a);
 }
 
 /**

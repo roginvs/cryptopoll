@@ -32,7 +32,7 @@ OBJECT_FILES=""
 
 for f in $FILES; do
   echo Building $f
-  /home/vasilii/wasi-sdk-21.0/bin/clang++ -c --target=wasm32-unknown-wasi \
+  /home/vasilii/wasi-sdk-21.0/bin/clang++ -g -c --target=wasm32-unknown-wasi \
    -mbulk-memory \
    -fignore-exceptions \
    --sysroot /home/vasilii/wasi-sdk-21.0/share/wasi-sysroot -o build/$f.wasm.o $f
@@ -41,7 +41,7 @@ done
 
 
 echo "Linking"
-/home/vasilii/wasi-sdk-21.0/bin/clang++ $OBJECT_FILES  \
+/home/vasilii/wasi-sdk-21.0/bin/clang++ -g $OBJECT_FILES  \
   -Wl,--allow-undefined,--stack-first,--no-entry \
   --sysroot /home/vasilii/wasi-sdk-21.0/share/wasi-sysroot \
   -o build/main.wasm
