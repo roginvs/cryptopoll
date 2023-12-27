@@ -21,4 +21,6 @@ test("Wasm library", () => {
   for (let i = 0; i < 32; i++) {
     assert.strictEqual(memoryView[keys_addr + i + 32], publicKey[i]);
   }
+
+  wasm.free_keys(keys_addr);
 });

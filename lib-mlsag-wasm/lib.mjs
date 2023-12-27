@@ -78,8 +78,9 @@ export const memory = /** @type {WebAssembly.Memory} */ (
 
 export const wasm = /**
  * @type {{
- *  allocate_keys: (keys_amount: number) => number,
- *  scalarmultBase: (out_addr: Number, priv_key_addr: number) => void
+ * allocate_keys: (keys_amount: number) => number,
+ * free_keys: (addr: number) => void,
+ * scalarmultBase: (out_addr: Number, priv_key_addr: number) => void
  * }}
  */ (instance.exports);
 
