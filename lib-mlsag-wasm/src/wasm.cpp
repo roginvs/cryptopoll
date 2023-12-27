@@ -11,13 +11,6 @@ void free_keys(key *p) __attribute__((export_name("free_keys")))
     delete[] p;
 }
 
-/*
-bool wasm_MLSAG_Ver(const key &message, const keyM &pk, const mgSig &sig, size_t dsRows)
-{
-    return MLSAG_Ver(message, pk, sig, dsRows);
-}
-*/
-
 void wasm_skGen(key *sk) __attribute__((export_name("skGen")))
 {
     skGen(*sk);
@@ -33,7 +26,12 @@ void wasm_scalarmultBase(key *aG, const key *a) __attribute__((export_name("scal
  * @brief
  * returns a pointer to [II, cc, ss1, ... , ssN ]
  */
-key *LSAG_Signature(key *message, key *privateKey, unsigned int public_keys_length, key *public_keys) __attribute__((export_name("LSAG_Signature")))
+key *LSAG_Signature(
+    const key *message,
+    const key *privateKey,
+    const unsigned int public_keys_length,
+    const key *public_keys)
+    __attribute__((export_name("LSAG_Signature")))
 {
 
     keyV xx{*privateKey};
@@ -67,4 +65,32 @@ key *LSAG_Signature(key *message, key *privateKey, unsigned int public_keys_leng
         out[i + 2] = signature.ss[i][0];
     }
     return out;
+}
+
+bool LSAG_Verify(
+    const key *message,
+    const unsigned int public_keys_length,
+    const key *public_keys,
+    const key *signature)
+    __attribute__((export_name("LSAG_Verify")))
+{
+    keyM pk;
+    pk.resize(public_keys_length);
+    keyM ss;
+    ss.resize(public_keys_length);
+
+    for (int i = 0; i < public_keys_length; i++)
+    {
+        pk[i].push_back(public_keys[i]);
+        ss[i].push_back(signature[i + 2]);
+    };
+
+    const mgSig sig = {
+        .ss = ss,
+        .cc = signature[1],
+        .II = keyV{signature[0]},
+    };
+
+    auto result = MLSAG_Ver(*message, pk, sig, 1);
+    return result;
 }
