@@ -65,7 +65,7 @@ key *LSAG_Signature(unsigned int public_keys_length, key *data) __attribute__((e
     out[1] = signature.cc;
     for (int i = 0; i < public_keys_length; i++)
     {
-        out[i + 2] = signature.ss[i + 2][0];
+        out[i + 2] = signature.ss[i][0];
     }
     return out;
 }
