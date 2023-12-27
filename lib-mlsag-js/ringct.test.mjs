@@ -4,7 +4,7 @@ import assert from "node:assert";
 import { MLSAG_Verify } from "./ringct.mjs";
 
 const testData = JSON.parse(
-  fs.readFileSync("./ringct.testdata.json").toString()
+  fs.readFileSync(new URL("./ringct.testdata.json", import.meta.url)).toString()
 );
 for (const [index, testDataItem] of testData.entries()) {
   test(`Signature ${index}`, () => {
