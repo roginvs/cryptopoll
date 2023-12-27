@@ -95,7 +95,7 @@ export const wasm = /**
  * free_keys: (addr: number) => void,
  * skGen: (key_addr: number) => void,
  * scalarmultBase: (out_addr: Number, priv_key_addr: number) => void,
- * LSAG_Signature: (public_keys_length: number, keys_addr: number) => number
+ * LSAG_Signature: ( message_address: number, private_key_addr: number, public_keys_length: number, public_keys_addresses: number) => number
  * }}
  */ (instance.exports);
 

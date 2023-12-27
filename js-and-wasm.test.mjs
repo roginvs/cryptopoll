@@ -7,34 +7,33 @@ test("wasm sign, js check", () => {
   const keyLen = 4;
   const index = 2;
 
-  const dataAddr = wasm.allocate_keys(keyLen + 2);
-  // Generate random message
-  wasm.skGen(dataAddr);
+  const pubkeysAddrs = wasm.allocate_keys(keyLen);
+
+  const messageAddr = wasm.allocate_keys(1);
+  wasm.skGen(messageAddr);
 
   const privAddr = wasm.allocate_keys(keyLen);
 
   for (let i = 0; i < keyLen; i++) {
     wasm.skGen(privAddr + i * 32);
-    wasm.scalarmultBase(dataAddr + 32 + 32 + i * 32, privAddr + i * 32);
+    wasm.scalarmultBase(pubkeysAddrs + i * 32, privAddr + i * 32);
   }
 
-  // Copy private key into data for wasm call
-  memoryView.set(
-    memoryView.subarray(privAddr + index * 32, privAddr + index * 32 + 32),
-    dataAddr + 32
+  const sigAddr = wasm.LSAG_Signature(
+    messageAddr,
+    privAddr + index * 32,
+    keyLen,
+    pubkeysAddrs
   );
 
-  const sigAddr = wasm.LSAG_Signature(keyLen, dataAddr);
+  assert.notStrictEqual(sigAddr, 0);
 
   const result = LSAG_Verify(
-    memoryView.subarray(dataAddr, dataAddr + 32),
+    memoryView.subarray(messageAddr, messageAddr + 32),
     new Array(keyLen)
       .fill(0)
       .map((_, i) =>
-        memoryView.subarray(
-          dataAddr + 32 + 32 + i * 32,
-          dataAddr + 32 + 32 + i * 32 + 32
-        )
+        memoryView.subarray(pubkeysAddrs + i * 32, pubkeysAddrs + i * 32 + 32)
       ),
     {
       II: memoryView.subarray(sigAddr, sigAddr + 32),
@@ -53,6 +52,7 @@ test("wasm sign, js check", () => {
   assert.strictEqual(result, true);
 
   wasm.free_keys(sigAddr);
-  wasm.free_keys(dataAddr);
+  wasm.free_keys(pubkeysAddrs);
   wasm.free_keys(privAddr);
+  wasm.free_keys(messageAddr);
 });
