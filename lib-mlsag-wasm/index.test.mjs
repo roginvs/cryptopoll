@@ -1,5 +1,5 @@
 import test from "node:test";
-import { memoryView, wasm } from "./lib.mjs";
+import { memoryView, wasm } from "./index.mjs";
 import assert from "node:assert";
 
 test("Wasm library", () => {
