@@ -47,7 +47,7 @@ key *LSAG_Signature(unsigned int public_keys_length, key *data) __attribute__((e
     scalarmultBase(my_public_key, data[1]);
     for (int i = 0; i < public_keys_length; i++)
     {
-        pk.push_back(keyV{data[i + 2]});
+        pk[i].push_back(data[i + 2]);
         if (my_public_key == data[i + 2])
         {
             index = i;

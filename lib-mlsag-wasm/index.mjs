@@ -10,6 +10,18 @@ const wasmData = await (async () => {
   }
 })();
 
+const getRandomValues = await (async () => {
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    // browser
+    return (/** @type {Uint8Array} */ data) => crypto.getRandomValues(data);
+  } else {
+    // node
+    const crypto = await import("crypto");
+    return (/** @type {Uint8Array} */ data) =>
+      crypto.webcrypto.getRandomValues(data);
+  }
+})();
+
 const module = await WebAssembly.compile(wasmData);
 
 const instance = await WebAssembly.instantiate(module, {
@@ -18,15 +30,11 @@ const instance = await WebAssembly.instantiate(module, {
       /** @type {number} */ size,
       /** @type {number} */ addr
     ) => {
-      const data = new Uint8Array(memory.buffer).subarray(addr, addr + size);
-      if (crypto.getRandomValues) {
-        // browser
-        crypto.getRandomValues(data);
-      } else {
-        // node
-        // @ts-ignore
-        crypto.webcrypto.getRandomValues(data);
-      }
+      const targetDataView = new Uint8Array(memory.buffer).subarray(
+        addr,
+        addr + size
+      );
+      getRandomValues(targetDataView);
     },
     __cxa_allocate_exception: (/** @type {number} */ a) => {
       throw new Error("__cxa_allocate_exception");
