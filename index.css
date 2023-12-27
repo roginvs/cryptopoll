@@ -55,12 +55,15 @@ html {
 }
 .header_info {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 10px;
 }
 .small_logo {
   height: 1em;
   width: 1em;
+}
+.logo {
+  filter: invert(1);
 }
 
 .button {
