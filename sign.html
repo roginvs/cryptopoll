@@ -2,12 +2,12 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="stylesheet" href="./common.css" />
-  <link rel="stylesheet" href="./signverify.css" />
+  <link rel="stylesheet" href="./ui/common.css" />
+  <link rel="stylesheet" href="./ui/signverify.css" />
 </head>
 <html>
   <body>
-    <script type="module" src="./sign.mjs"></script>
+    <script type="module" src="./ui/sign.mjs"></script>
     <div class="container">
       <h1>Make signature</h1>
       <h2>----------------------------------------------------------------</h2>
@@ -25,8 +25,14 @@
       </div>
 
       <div class="sign_buttons">
-        <a class="button">Sign!</a>
-        <a class="button">Go back</a>
+        <a class="button">
+          <img src="./ui/img/signature-svgrepo-com.svg" />
+          Sign!
+        </a>
+        <a class="button">
+          <img src="./ui/img/back-svgrepo-com.svg" />
+          Go back
+        </a>
       </div>
     </div>
   </body>
