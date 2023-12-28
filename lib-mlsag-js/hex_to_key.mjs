@@ -9,7 +9,7 @@ export function hex_to_key(s) {
   if (!s) {
     throw new Error(`No value`);
   }
-  if (typeof s === "object") {
+  if (typeof s === "object" && s instanceof Uint8Array) {
     return s;
   }
   const k = hex_to_array(s);

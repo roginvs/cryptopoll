@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="./ui/common.css" />
+  <link rel="stylesheet" href="./ui/signverify.css" />
+  <link rel="stylesheet" href="./ui/verify.css" />
+</head>
+<html>
+  <body>
+    <script type="module" src="./ui/verify.mjs"></script>
+    <div class="container">
+      <h1>Verify signed message</h1>
+
+      <div class="textareas">
+        <div>
+          <h5>SIGNED MESSAGE</h5>
+          <textarea
+            id="signed_message"
+            placeholder="Place signed message here"
+            rows="20"
+          ></textarea>
+        </div>
+        <div>
+          <h5>USED PUBLIC KEYS</h5>
+          <textarea id="ring_pubkeys" placeholder="" rows="20"></textarea>
+        </div>
+      </div>
+
+      <div class="signverify_buttons">
+        <button class="button" id="verify_button">
+          <img src="./ui/img/document-tick-svgrepo-com.svg" />
+          Verify!
+        </button>
+        <a class="button" href="./">
+          <img src="./ui/img/back-svgrepo-com.svg" />
+          Go back
+        </a>
+      </div>
+
+      <dialog id="dialog">
+        <div id="dialog_content">
+          <h4 id="dialog_signature_status">Verification status</h4>
+          <div id="dialog_verification_ok">
+            <p>
+              <label>Key image:</label><br />
+              <input type="text" id="dialog_key_image" readonly />
+            </p>
+            <p>
+              <label>Message:</label><br />
+              <textarea id="dialog_message_text" readonly rows="20"></textarea>
+            </p>
+          </div>
+          <div id="dialog_verification_fail">
+            <h5 id="dialog_signature_errortext">Why it failed here</h5>
+          </div>
+        </div>
+        <div id="dialog_buttons">
+          <button class="button" id="dialog_button_close" autofocus>
+            Close
+          </button>
+        </div>
+      </dialog>
+    </div>
+  </body>
+</html>

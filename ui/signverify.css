@@ -10,7 +10,8 @@
   width: 50%;
 }
 
-textarea {
+textarea,
+input {
   font-family: monospace;
   width: 90%;
   resize: none;
@@ -18,14 +19,15 @@ textarea {
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 8px 8px;
-  white-space: pre;
+  /* white-space: pre; */
+  word-break: break-all;
   border: 1px solid rgb(118, 118, 118);
 }
 textarea:focus {
   outline: 1px solid rgb(186, 186, 186);
 }
 
-.sign_buttons {
+.signverify_buttons {
   margin-top: 30px;
   display: flex;
   gap: 20px;
@@ -50,7 +52,8 @@ textarea:focus {
 
   margin-top: 30px;
 }
-#dialog_signature_text {
+#dialog textarea,
+#dialog input {
   width: 100%;
   resize: none;
   white-space: unset;
