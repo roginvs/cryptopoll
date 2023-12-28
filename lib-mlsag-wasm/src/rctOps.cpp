@@ -597,8 +597,7 @@ key cn_fast_hash(const keyV &keys)
 
     if (keys.empty())
     {
-        // @TODO: Check that it works correctly
-        // Here is was this
+        // Previously it was this
         // return hash2rct(cn_fast_hash("", 0));
         cn_fast_hash(rv, "", 0);
         return rv;
