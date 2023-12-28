@@ -32,7 +32,11 @@ function startWithPrivateKey(privateKey) {
   ring_pub_keys_el.removeAttribute("disabled");
   ring_pub_keys_el.setAttribute(
     "placeholder",
-    "Here is a list of all participants public keys"
+    "# Here is a list of all participants public keys\n" +
+      "# Empty lines and lines starting with # are ignored\n" +
+      "# Example:\n\n" +
+      "# Vasilii\naabbcc.....\n\n" +
+      "# Mariia\neeffdd.....\n"
   );
 
   const sign_button_el = byId("sign_button");
@@ -73,7 +77,8 @@ function startWithPrivateKey(privateKey) {
       for (const str of ring_pub_keys_el.value
         .split("\n")
         .map((x) => x.trim())
-        .filter((x) => x)) {
+        .filter((x) => x)
+        .filter((x) => !x.startsWith("#"))) {
         try {
           const buf = hex_to_key(str);
           ringPubKeys.push(buf);
@@ -145,7 +150,7 @@ function startWithPrivateKey(privateKey) {
 
       dialog_signature_text_el.value = JSON.stringify(signedMessage);
 
-      dialog_signature_status_el.innerText = "Signing successfull";
+      dialog_signature_status_el.innerText = `Signing successfull with a ring of ${ringPubKeys.length} participants`;
     } catch (e) {
       dialog_signature_status_el.classList.add("dialog_signature_status_error");
       dialog_signature_status_el.innerText = "Signing failed";
