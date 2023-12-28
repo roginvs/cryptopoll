@@ -1,6 +1,7 @@
 #ifndef MEMWIPE_H
 #define MEMWIPE_H
-#include <string.h>
+
+#include <stddef.h>
 
 void *memwipe(void *ptr, size_t len);
 
