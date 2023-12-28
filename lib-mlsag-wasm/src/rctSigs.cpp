@@ -170,7 +170,8 @@ bool MLSAG_Ver(const key &message, const keyM &pk, const mgSig &rv, size_t dsRow
     {
         CHECK_AND_ASSERT_MES(!(rv.II[i] == identity()), false, "Bad key image");
         precomp(Ip[i].k, rv.II[i]);
-        // @TODO: Check that rv.II[i]*groupSize = zero
+
+        CHECK_AND_ASSERT_MES(isInMainSubgroup(rv.II[i]), true, "Key image is not in main group");
     }
     size_t ndsRows = 3 * dsRows; // number of dimensions not requiring linkability
     keyV toHash(1 + 3 * dsRows + 2 * (rows - dsRows));
