@@ -52,3 +52,8 @@ h1 {
   margin-right: 4px;
   color: white;
 }
+
+.button:disabled {
+  background: linear-gradient(90deg, #400060 0%, #3e2270 100%);
+  cursor: not-allowed;
+}
