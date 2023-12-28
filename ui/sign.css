@@ -1,0 +1,10 @@
+.keypair_info {
+  color: #ffffff;
+  font-weight: bold;
+}
+.keypair_info_ready {
+  color: #aaaaaa;
+}
+.keypair_info a {
+  color: inherit;
+}

@@ -4,6 +4,7 @@
 
   <link rel="stylesheet" href="./ui/common.css" />
   <link rel="stylesheet" href="./ui/signverify.css" />
+  <link rel="stylesheet" href="./ui/sign.css" />
 </head>
 <html>
   <body>
@@ -22,6 +23,7 @@
         <div>
           <h5>YOUR MESSAGE</h5>
           <textarea
+            id="message"
             disabled
             placeholder="Generate keypair first!"
             rows="20"
@@ -30,6 +32,7 @@
         <div>
           <h5>PUBLIC KEYS TO USE</h5>
           <textarea
+            id="ring_pubkeys"
             disabled
             placeholder="Generate keypair first!"
             rows="20"
@@ -38,7 +41,7 @@
       </div>
 
       <div class="sign_buttons">
-        <button class="button" disabled>
+        <button class="button" id="sign_button" disabled>
           <img src="./ui/img/signature-svgrepo-com.svg" />
           Sign!
         </button>
