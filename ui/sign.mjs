@@ -3,6 +3,7 @@ import { hex_to_key } from "../lib-mlsag-js/hex_to_key.mjs";
 import { memoryView, wasm } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
 import { getMessageHash } from "./getMessageHash.mjs";
+import { ring_pub_keys_placeholder_text } from "./signverify.mjs";
 
 /**
  * @param {Uint8Array} privateKey
@@ -30,20 +31,14 @@ function startWithPrivateKey(privateKey) {
   message_el.removeAttribute("disabled");
   message_el.setAttribute("placeholder", "Type a message here");
   ring_pub_keys_el.removeAttribute("disabled");
-  ring_pub_keys_el.setAttribute(
-    "placeholder",
-    "# Here is a list of all participants public keys\n" +
-      "# Empty lines and lines starting with # are ignored\n" +
-      "# Example:\n\n" +
-      "# Vasilii\naabbcc.....\n\n" +
-      "# Mariia\neeffdd.....\n"
-  );
+  ring_pub_keys_el.setAttribute("placeholder", ring_pub_keys_placeholder_text);
 
   const sign_button_el = byId("sign_button");
   sign_button_el.removeAttribute("disabled");
 
   {
     // Local testing
+    /*
     message_el.value = "Test message";
     ring_pub_keys_el.value = [
       "f9a8e6bba0a5145f85efb1ee0c73373acc626f183b4c1033e5a3c4c7e1329ffc",
@@ -52,6 +47,7 @@ function startWithPrivateKey(privateKey) {
     ]
       .map((x) => x + "\n")
       .join("");
+      */
   }
 
   const dialog_el = /** @type {HTMLDialogElement} */ (byId("dialog"));
@@ -169,8 +165,6 @@ function startWithPrivateKey(privateKey) {
   };
 
   sign_button_el.addEventListener("click", onSignClick);
-  // TODO: This is onclick
-  onSignClick();
 }
 
 const LOCALSTORAGE_PRIV_KEY_KEY = "private-key";
