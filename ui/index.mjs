@@ -17,3 +17,7 @@ pages.addEventListener("scroll", (e) => {
     pages.scrollHeight - pages.offsetHeight - pages.scrollTop < 200;
   learn_more.style.display = isArrowHidden ? "none" : "";
 });
+
+learn_more.addEventListener("click", () => {
+  pages.scrollTop += pages.offsetHeight;
+});
