@@ -48,6 +48,54 @@ function startWithPrivateKey(privateKey) {
       .map((x) => x + "\n")
       .join("");
   }
+
+  const dialog_el = /** @type {HTMLDialogElement} */ (byId("dialog"));
+
+  byId("dialog_button_close").addEventListener("click", () => {
+    dialog_el.close();
+  });
+
+  const dialog_signature_status_el = byId("dialog_signature_status");
+  const dialog_signature_text_el = /** @type {HTMLTextAreaElement} */ (
+    byId("dialog_signature_text")
+  );
+  const onSignClick = () => {
+    dialog_signature_status_el.classList.remove(
+      "dialog_signature_status_error"
+    );
+    try {
+      /** @type {Uint8Array[]} */
+      const ringPubKeys = [];
+      for (const str of ring_pub_keys_el.value
+        .split("\n")
+        .map((x) => x.trim())
+        .filter((x) => x)) {
+        try {
+          const buf = hex_to_key(str);
+          ringPubKeys.push(buf);
+        } catch {
+          throw new Error(`Failed to read public key: ${str}`);
+        }
+      }
+
+      //
+
+      dialog_signature_status_el.innerText = "Signing successfull";
+    } catch (e) {
+      dialog_signature_status_el.classList.add("dialog_signature_status_error");
+      dialog_signature_status_el.innerText = "Signing failed";
+      dialog_signature_text_el.innerText =
+        e instanceof Error ? e.message : `${e}`;
+    } finally {
+      //
+    }
+
+    dialog_el.showModal();
+  };
+
+  sign_button_el.addEventListener("click", onSignClick);
+  // TODO: This is onclick
+  onSignClick();
 }
 
 const LOCALSTORAGE_PRIV_KEY_KEY = "private-key";

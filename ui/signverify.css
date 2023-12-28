@@ -10,7 +10,7 @@
   width: 50%;
 }
 
-.textareas textarea {
+textarea {
   font-family: monospace;
   width: 90%;
   resize: none;
@@ -21,7 +21,7 @@
   white-space: pre;
   border: 1px solid rgb(118, 118, 118);
 }
-.textareas textarea:focus {
+textarea:focus {
   outline: 1px solid rgb(186, 186, 186);
 }
 
@@ -29,4 +29,35 @@
   margin-top: 30px;
   display: flex;
   gap: 20px;
+}
+
+#dialog::backdrop {
+  background-image: linear-gradient(45deg, #12001b, #080114);
+  opacity: 0.8;
+}
+
+#dialog {
+  border-radius: 16px;
+  border: 3px solid #909090;
+  background-color: #281549;
+  color: #ffffff;
+
+  width: 600px;
+}
+#dialog_buttons {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 30px;
+}
+#dialog_signature_text {
+  width: 100%;
+  resize: none;
+}
+#dialog_signature_status {
+  text-align: center;
+}
+
+.dialog_signature_status_error {
+  color: red;
 }
