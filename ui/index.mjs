@@ -1,14 +1,5 @@
-/**
- *
- * @param {string} id
- */
-function byId(id) {
-  const el = document.getElementById(id);
-  if (!el) {
-    throw new Error(`Element ${id} not found!`);
-  }
-  return el;
-}
+import { byId } from "./byId.mjs";
+
 const pages = byId("pages");
 const learn_more = byId("learn_more");
 
