@@ -50,10 +50,18 @@
           <div>
             <h1>How it works</h1>
             <p>
-              This website allows you to create and verify ring signature - a
-              signature where exact signer is unknown.
+              This application is using linkable spontaneous anonymous group
+              (LSAG) signature which are a powerful cryptographic tool that
+              ensures the anonymity of participants while preserving the
+              integrity of a group's decisions.
             </p>
-            <p>Bla-bla</p>
+            <p>
+              This innovative concept combines multiple public keys into a
+              single signature, making it impossible to discern which specific
+              key was used for the signature. Furthermore, linkable signatures
+              generate a unique key image for each signature, enabling the
+              detection of any attempts at double-voting or fraud.
+            </p>
           </div>
         </div>
       </div>
@@ -63,8 +71,129 @@
         <div class="welcome_container">
           <div>
             <h1>How to use</h1>
-            <p>Voting goes in 3 steps:</p>
-            <p>Bla-bla</p>
+            <p>
+              Our platform simplifies the process of creating and verifying
+              linkable ring signatures for secure and private voting. Here's a
+              step-by-step guide on how to use our service:
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Step 1: Generate Key Pairs</h1>
+            <p>
+              First, all participants create their unique key pairs within the
+              "sign" page. These key pairs consist of a public key (shared with
+              the voting authority) and a private key (kept secret).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Step 2: Publish Public Keys</h1>
+            <p>
+              Participants then submit their public keys to the voting
+              authority. These keys will be used to verify signatures but will
+              not reveal the identity of the signer.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Step 3: Freeze the List</h1>
+            <p>
+              Once all public keys are collected, the voting authority freezes
+              the list of participating public keys. This step ensures that only
+              authorized participants can contribute to the voting process.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Step 4: Sign Your Message</h1>
+            <p>
+              Each participant can now sign their vote or message using their
+              private key. They also select from the list of allowed public keys
+              when creating their signature.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Step 5: Submit the Signature</h1>
+            <p>
+              After signing their message, participants send the signed message
+              to the voting authority, which publishes all received signatures.
+            </p>
+            <p>
+              They can also use anonymous network like Tor to be protected from
+              tracking by IP address
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Step 6: Verification</h1>
+            <p>
+              Now, anyone can verify that each vote or message was indeed signed
+              by someone from the authorized list of participants. The unique
+              key image generated for each signature ensures that no one can
+              vote multiple times or manipulate the results.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Summary</h1>
+            <p>
+              If you have questions feel free to ask then on project
+              <a href="https://github.com/roginvs/cryptopoll" target="_blank"
+                >github</a
+              >
+            </p>
+
+            <p>
+              This project is based on "Linkable Spontaneous Anonymous Group
+              Signature for Ad Hoc Groups"
+              <a target="_blank" href="https://eprint.iacr.org/2004/027.pdf"
+                >paper</a
+              >
+            </p>
+
+            <p>
+              LSAG implementation is taken from
+              <a target="_blank" href="https://www.getmonero.org/">Monero</a>
+              project which is a cryptocurrency with focus on security and
+              anonymity
+            </p>
           </div>
         </div>
       </div>

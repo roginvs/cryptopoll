@@ -96,6 +96,9 @@ html {
   white-space: pre;
 }
 
+.page a {
+  color: inherit;
+}
 /*
 
 TODO
