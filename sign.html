@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="./common.css" />
+  <link rel="stylesheet" href="./signverify.css" />
+</head>
+<html>
+  <body>
+    <script type="module" src="./sign.mjs"></script>
+    <div class="container">
+      <h1>Make signature</h1>
+      <h2>----------------------------------------------------------------</h2>
+      <h4>Your public key is not generated yet, click here to generate</h4>
+
+      <div class="textareas">
+        <div>
+          <h5>YOUR MESSAGE</h5>
+          <textarea rows="20"></textarea>
+        </div>
+        <div>
+          <h5>PUBLIC KEYS TO USE</h5>
+          <textarea rows="20"></textarea>
+        </div>
+      </div>
+
+      <div class="sign_buttons">
+        <a class="button">Sign!</a>
+        <a class="button">Go back</a>
+      </div>
+    </div>
+  </body>
+</html>
