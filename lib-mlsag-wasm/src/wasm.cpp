@@ -94,3 +94,9 @@ bool LSAG_Verify(
     auto result = MLSAG_Ver(*message, pk, sig, 1);
     return result;
 }
+
+void wasm_cn_fast_hash(key *hash, const void *data, const std::size_t l)
+    __attribute__((export_name("cn_fast_hash")))
+{
+    cn_fast_hash(*hash, data, l);
+}

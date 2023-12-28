@@ -96,7 +96,8 @@ export const wasm = /**
  * skGen: (key_addr: number) => void,
  * scalarmultBase: (out_addr: number, priv_key_addr: number) => void,
  * LSAG_Signature: ( message_address: number, private_key_addr: number, public_keys_length: number, public_keys_addresses: number) => number,
- * LSAG_Verify: (message_address: number, public_keys_length: number, public_keys_addresses: number, signature_address: number) => number
+ * LSAG_Verify: (message_address: number, public_keys_length: number, public_keys_addresses: number, signature_address: number) => number,
+ * cn_fast_hash: (hash_out_addr: number, data_addr: number, data_length: number) => void
  * }}
  */ (instance.exports);
 
