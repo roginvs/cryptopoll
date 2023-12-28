@@ -2,6 +2,7 @@ import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
 import { hex_to_key } from "../lib-mlsag-js/hex_to_key.mjs";
 import { memoryView, wasm } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
+import { getMessageHash } from "./getMessageHash.mjs";
 
 /**
  * @param {Uint8Array} privateKey
@@ -63,6 +64,9 @@ function startWithPrivateKey(privateKey) {
     dialog_signature_status_el.classList.remove(
       "dialog_signature_status_error"
     );
+
+    let dataAddr = 0;
+    let sigAddr = 0;
     try {
       /** @type {Uint8Array[]} */
       const ringPubKeys = [];
@@ -77,17 +81,83 @@ function startWithPrivateKey(privateKey) {
           throw new Error(`Failed to read public key: ${str}`);
         }
       }
+      if (ringPubKeys.length === 0) {
+        throw new Error(`No public keys provided!`);
+      }
+      if (ringPubKeys.length === 1) {
+        throw new Error(`Only one public key provided!`);
+      }
+      if (
+        !ringPubKeys
+          .map((x) => array_to_hex(x))
+          .includes(array_to_hex(publicKeyBuf))
+      ) {
+        // Double-check before even calling wasm
+        throw new Error(`Your public key is not included into the list`);
+      }
 
-      //
+      const message = message_el.value;
+
+      const messageHash = getMessageHash(message);
+
+      /** [privKey, message, key1, ... , keyN] */
+      dataAddr = wasm.allocate_keys(ringPubKeys.length + 2);
+
+      memoryView.set(privateKey, dataAddr);
+      memoryView.set(messageHash, dataAddr + 32);
+      for (let i = 0; i < ringPubKeys.length; i++) {
+        memoryView.set(ringPubKeys[i], dataAddr + 32 + 32 + 32 * i);
+      }
+
+      sigAddr = wasm.LSAG_Signature(
+        dataAddr + 32,
+        dataAddr,
+        ringPubKeys.length,
+        dataAddr + 32 + 32
+      );
+
+      if (sigAddr === 0) {
+        throw new Error(`Your public key is not included into the list`);
+      }
+
+      /** @type {import("../lib-mlsag-js/ringct.types").LSAG_Signature<string>} */
+      const sig = {
+        II: array_to_hex(memoryView.subarray(sigAddr, sigAddr + 32)),
+        cc: array_to_hex(memoryView.subarray(sigAddr + 32, sigAddr + 32 + 32)),
+        ss: new Array(ringPubKeys.length)
+          .fill(0)
+          .map((_, i) =>
+            array_to_hex(
+              memoryView.subarray(
+                sigAddr + 32 + 32 + 32 * i,
+                sigAddr + 32 + 32 + 32 * i + 32
+              )
+            )
+          ),
+      };
+
+      /** @type {import("./signedmessage.types").SignedMessage} */
+      const signedMessage = {
+        m: message,
+        mh: array_to_hex(messageHash),
+        sig,
+      };
+
+      dialog_signature_text_el.value = JSON.stringify(signedMessage);
 
       dialog_signature_status_el.innerText = "Signing successfull";
     } catch (e) {
       dialog_signature_status_el.classList.add("dialog_signature_status_error");
       dialog_signature_status_el.innerText = "Signing failed";
-      dialog_signature_text_el.innerText =
-        e instanceof Error ? e.message : `${e}`;
+      dialog_signature_text_el.value = e instanceof Error ? e.message : `${e}`;
     } finally {
-      //
+      if (dataAddr) {
+        memoryView.set(new Uint8Array(32), dataAddr);
+        wasm.free_keys(dataAddr);
+      }
+      if (sigAddr) {
+        wasm.free_keys(sigAddr);
+      }
     }
 
     dialog_el.showModal();

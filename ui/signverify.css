@@ -53,6 +53,8 @@ textarea:focus {
 #dialog_signature_text {
   width: 100%;
   resize: none;
+  white-space: unset;
+  word-break: break-all;
 }
 #dialog_signature_status {
   text-align: center;
