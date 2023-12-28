@@ -57,3 +57,14 @@ h1 {
   background: linear-gradient(90deg, #400060 0%, #3e2270 100%);
   cursor: not-allowed;
 }
+
+.keypair_info {
+  color: #ffffff;
+  font-weight: bold;
+}
+.keypair_info_ready {
+  color: #aaaaaa;
+}
+.keypair_info a {
+  color: inherit;
+}

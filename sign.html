@@ -11,7 +11,10 @@
     <div class="container">
       <h1>Sign a message</h1>
       <h2>----------------------------------------------------------------</h2>
-      <h4>Your public key is not generated yet, click here to generate</h4>
+      <p class="keypair_info">
+        Your keypair key is not generated yet,
+        <a href="#" id="generate_keypair">click here to generate</a>
+      </p>
 
       <div class="textareas">
         <div>
@@ -24,7 +27,11 @@
         </div>
         <div>
           <h5>PUBLIC KEYS TO USE</h5>
-          <textarea disabled rows="20"></textarea>
+          <textarea
+            disabled
+            placeholder="Generate keypair first!"
+            rows="20"
+          ></textarea>
         </div>
       </div>
 
