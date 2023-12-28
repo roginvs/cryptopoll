@@ -76,7 +76,16 @@ html {
   background: linear-gradient(90deg, #6e00a6 0%, #6939bb 100%);
   border: 0;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button > img {
+  height: 1.2em;
+  width: 1.2em;
+  margin-right: 4px;
+  color: white;
 }
 
 .welcome_container .buttons {
