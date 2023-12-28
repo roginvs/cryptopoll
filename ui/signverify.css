@@ -19,6 +19,10 @@
   border-radius: 8px;
   padding: 8px 8px;
   white-space: pre;
+  border: 1px solid rgb(118, 118, 118);
+}
+.textareas textarea:focus {
+  outline: 1px solid rgb(186, 186, 186);
 }
 
 .sign_buttons {
