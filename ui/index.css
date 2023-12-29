@@ -14,6 +14,7 @@
   width: 50%;
   height: 100%;
   padding-left: 50px;
+  padding-right: 10px;
 }
 
 .welcome_container > div:nth-child(2) {
@@ -22,6 +23,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding-right: 50px;
+  padding-left: 10px;
 }
 .header_info {
   display: flex;
@@ -90,7 +94,10 @@ html {
 .page {
   scroll-snap-align: start;
 }
-
+.page div {
+  margin-left: 20px;
+  margin-right: 20px;
+}
 .space_eater {
   height: 120px;
   white-space: pre;
@@ -98,6 +105,13 @@ html {
 
 .page a {
   color: inherit;
+}
+
+.page_image {
+  width: 80%;
+  border-radius: 20px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
 /*
 
