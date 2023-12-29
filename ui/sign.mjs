@@ -27,9 +27,6 @@ function startWithPrivateKey(privateKey) {
   })();
   public_key_el.innerText = array_to_hex(publicKeyBuf);
 
-  // TODO: Uncomment
-  // public_key_options_el.style.display = "";
-
   const message_el = /** @type {HTMLTextAreaElement} */ (byId("message"));
   const ring_pub_keys_el = /** @type {HTMLTextAreaElement} */ (
     byId("ring_pubkeys")
@@ -153,6 +150,22 @@ function startWithPrivateKey(privateKey) {
   };
 
   sign_button_el.addEventListener("click", onSignClick);
+
+  public_key_options_el.style.display = "";
+  public_key_options_el.addEventListener("click", () => {
+    if (!confirm("Do you want to logout?")) {
+      return;
+    }
+    if (
+      !confirm(
+        "Your private key will be remove and there will be no way to recover it. Are you sure?"
+      )
+    ) {
+      return;
+    }
+    localStorage.removeItem(LOCALSTORAGE_PRIV_KEY_KEY);
+    window.location.reload();
+  });
 }
 
 const LOCALSTORAGE_PRIV_KEY_KEY = "private-key";
