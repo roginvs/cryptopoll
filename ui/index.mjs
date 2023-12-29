@@ -43,4 +43,11 @@ function addShowingAnimations() {
       }
     });
 }
+
+document.querySelectorAll("img").forEach((el, key) => {
+  setTimeout(() => {
+    el.removeAttribute("loading");
+  }, key * 300);
+});
+
 addShowingAnimations();
