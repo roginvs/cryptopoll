@@ -95,8 +95,10 @@ html {
   scroll-snap-align: start;
 }
 .page div {
+  /*
   margin-left: 20px;
   margin-right: 20px;
+  */
 }
 .space_eater {
   height: 120px;
