@@ -1,5 +1,5 @@
 const wasmData = await (async () => {
-  const url = new URL("./lib.wasm", import.meta.url);
+  const url = new URL("./lib-mlsag.wasm", import.meta.url);
   if (typeof window !== "undefined") {
     // browser
     return fetch(url).then((res) => res.arrayBuffer());
