@@ -12,7 +12,7 @@ import {
  * @param {Uint8Array} privateKey
  */
 function startWithPrivateKey(privateKey) {
-  keypair_info_el.innerHTML = "This is your public key";
+  keypair_info_el.innerHTML = "This is your public key. Share it with everyone";
   keypair_info_el.classList.add("keypair_info_ready");
 
   const publicKeyBuf = (() => {
