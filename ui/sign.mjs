@@ -27,6 +27,9 @@ function startWithPrivateKey(privateKey) {
   })();
   public_key_el.innerText = array_to_hex(publicKeyBuf);
 
+  // TODO: Uncomment
+  // public_key_options_el.style.display = "";
+
   const message_el = /** @type {HTMLTextAreaElement} */ (byId("message"));
   const ring_pub_keys_el = /** @type {HTMLTextAreaElement} */ (
     byId("ring_pubkeys")
@@ -155,6 +158,7 @@ function startWithPrivateKey(privateKey) {
 const LOCALSTORAGE_PRIV_KEY_KEY = "private-key";
 
 const public_key_el = byId("public_key");
+const public_key_options_el = byId("public_key_options");
 const keypair_info_el = byId("keypair_info");
 
 function start() {
