@@ -51,7 +51,7 @@
             <h1>How it works</h1>
             <p>
               This application is using linkable spontaneous anonymous group
-              (LSAG) signature which are a powerful cryptographic tool that
+              (LSAG) signature which is a powerful cryptographic tool that
               ensures the anonymity of participants while preserving the
               integrity of a group's decisions.
             </p>
@@ -150,6 +150,11 @@
               Each participant can now sign their vote or message using their
               private key and a full list of frozen public keys.
             </p>
+            <p>
+              LSAG ensures that there is no way to determine which private key
+              was used to create this signature and it also ensures that it was
+              one of the key from the list.
+            </p>
           </div>
           <div>
             <img
@@ -168,7 +173,8 @@
             <h1>Step 5: Submit the Signature</h1>
             <p>
               After signing their message, participants send the signed message
-              to the voting authority, which publishes all received signatures.
+              to the voting authority, which immediately publishes all received
+              signatures.
             </p>
             <p>
               They can also use anonymous network like Tor to be protected from
@@ -216,7 +222,7 @@
               If you have questions feel free to ask then on project
               <a href="https://github.com/roginvs/cryptopoll" target="_blank"
                 >github</a
-              >
+              >.
             </p>
 
             <p>
@@ -224,14 +230,14 @@
               Signature for Ad Hoc Groups"
               <a target="_blank" href="https://eprint.iacr.org/2004/027.pdf"
                 >paper</a
-              >
+              >.
             </p>
 
             <p>
               LSAG implementation is taken from
               <a target="_blank" href="https://www.getmonero.org/">Monero</a>
               project which is a cryptocurrency with focus on security and
-              anonymity
+              anonymity.
             </p>
           </div>
           <div>
