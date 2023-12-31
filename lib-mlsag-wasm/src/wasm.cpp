@@ -42,7 +42,7 @@ key *LSAG_Signature(
 
     key my_public_key;
     scalarmultBase(my_public_key, *privateKey);
-    for (int i = 0; i < public_keys_length; i++)
+    for (unsigned int i = 0; i < public_keys_length; i++)
     {
         pk[i].push_back(public_keys[i]);
         if (my_public_key == public_keys[i])
@@ -60,7 +60,7 @@ key *LSAG_Signature(
     auto out = new key[public_keys_length + 2];
     out[0] = signature.II[0];
     out[1] = signature.cc;
-    for (int i = 0; i < public_keys_length; i++)
+    for (unsigned int i = 0; i < public_keys_length; i++)
     {
         out[i + 2] = signature.ss[i][0];
     }
@@ -79,7 +79,7 @@ bool LSAG_Verify(
     keyM ss;
     ss.resize(public_keys_length);
 
-    for (int i = 0; i < public_keys_length; i++)
+    for (unsigned int i = 0; i < public_keys_length; i++)
     {
         pk[i].push_back(public_keys[i]);
         ss[i].push_back(signature[i + 2]);
