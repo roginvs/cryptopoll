@@ -1,10 +1,20 @@
 /**
  * @param {string} str
+ */
+export function stringToUTF8Array(str) {
+  const encoder = new TextEncoder();
+  return encoder.encode(str);
+}
+
+/**
+ * @param {string} str
  *
  * https://stackoverflow.com/questions/6965107/converting-between-strings-and-arraybuffers
  * from emscripten
+ *
+ * @deprecated
  */
-export function stringToUTF8Array(str) {
+export function stringToUTF8ArrayOld(str) {
   const outU8Array = /** @type {number[]} */ ([]);
 
   let outIdx = 0;
