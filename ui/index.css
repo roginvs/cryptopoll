@@ -1,31 +1,98 @@
+@media only screen and (max-width: 850px) {
+  /* Mobile */
+
+  .header_container {
+    height: 100px;
+    margin-left: 10px;
+  }
+
+  .welcome_container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .welcome_container > div {
+    width: 100%;
+  }
+  .welcome_container {
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  /* To hide horizontal scrollbar */
+  .pages {
+    padding-right: 20px;
+    overflow-x: hidden;
+  }
+
+  .space_eater {
+    height: 60px;
+  }
+}
+@media only screen and (min-width: 850px) {
+  /* Desktop */
+
+  .header_container {
+    height: 200px;
+    margin-left: 50px;
+  }
+
+  .welcome_container {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .welcome_container > div {
+    width: 50%;
+    height: 100%;
+  }
+  .page {
+    height: 100vh;
+  }
+
+  .pages {
+    scroll-snap-type: y mandatory;
+    height: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  .page {
+    scroll-snap-align: start;
+  }
+
+  h1 {
+    font-size: 58px;
+  }
+
+  .space_eater {
+    height: 120px;
+  }
+}
+
 .header_container {
-  height: 200px;
   font-size: 20px;
-  padding-left: 50px;
   display: flex;
   align-items: center;
 }
 .welcome_container {
-  /* height: 90vh; */
   display: flex;
   width: 100%;
+  gap: 20px;
 }
 .welcome_container > div:nth-child(1) {
-  width: 50%;
-  height: 100%;
-  padding-left: 50px;
-  padding-right: 10px;
 }
 
 .welcome_container > div:nth-child(2) {
-  width: 50%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding-right: 50px;
-  padding-left: 10px;
 }
 .header_info {
   display: flex;
@@ -42,9 +109,9 @@
 
 .welcome_container .buttons {
   margin-top: 80px;
-}
-.welcome_container .buttons .button:nth-child(1) {
-  margin-right: 20px;
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .welcome_container p {
@@ -85,15 +152,7 @@ body,
 html {
   height: 100%;
 }
-.pages {
-  scroll-snap-type: y mandatory;
-  height: 100%;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-}
-.page {
-  scroll-snap-align: start;
-}
+
 .page div {
   /*
   margin-left: 20px;
@@ -101,7 +160,6 @@ html {
   */
 }
 .space_eater {
-  height: 120px;
   white-space: pre;
 }
 
