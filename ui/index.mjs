@@ -29,7 +29,7 @@ function addShowingAnimations() {
     {
       //root: el,
       rootMargin: "0px",
-      threshold: 1,
+      threshold: 0,
     }
   );
   document
