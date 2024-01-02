@@ -1,13 +1,28 @@
-.container {
-  margin: 60px;
-}
-
 .textareas {
   display: flex;
 }
 
-.textareas > div {
-  width: 50%;
+@media only screen and (max-width: 850px) {
+  /* Mobile */
+  .textareas > div {
+    width: 100%;
+  }
+  .textareas {
+    flex-wrap: wrap;
+  }
+  .container {
+    margin: 20px;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  /* Desktop */
+  .textareas > div {
+    width: 50%;
+  }
+  .container {
+    margin: 60px;
+  }
 }
 
 textarea,
