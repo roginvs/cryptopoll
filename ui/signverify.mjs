@@ -35,3 +35,12 @@ export function parsePublicKeys(elementValue) {
 
   return ringPubKeys;
 }
+
+document.querySelectorAll("#dialog textarea, #dialog input").forEach((el) => {
+  if (el instanceof HTMLTextAreaElement || el instanceof HTMLInputElement) {
+    el.addEventListener("touchend", () => {
+      el.selectionStart = 0;
+      el.selectionEnd = el.value.length;
+    });
+  }
+});
