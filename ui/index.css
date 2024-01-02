@@ -3,12 +3,12 @@
 
   .header_container {
     height: 100px;
-    margin-left: 10px;
+    margin-left: 20px;
   }
 
   .welcome_container {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .welcome_container > div {
@@ -18,17 +18,13 @@
     flex-wrap: wrap;
   }
 
-  h1 {
-    font-size: 38px;
-  }
-
   .button {
     width: 100%;
   }
 
   /* To hide horizontal scrollbar */
   .pages {
-    padding-right: 20px;
+    padding-right: 10px;
     overflow-x: hidden;
   }
 
@@ -67,10 +63,6 @@
     scroll-snap-align: start;
   }
 
-  h1 {
-    font-size: 58px;
-  }
-
   .space_eater {
     height: 120px;
   }
@@ -83,7 +75,6 @@
 }
 .welcome_container {
   display: flex;
-  width: 100%;
   gap: 20px;
 }
 .welcome_container > div:nth-child(1) {

@@ -27,6 +27,20 @@ h1 {
   text-shadow: 0px 0px 4px rgb(255, 255, 255);
 }
 
+@media only screen and (max-width: 850px) {
+  /* Mobile */
+  h1 {
+    font-size: 38px;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  /* Desktop */
+  h1 {
+    font-size: 58px;
+  }
+}
+
 .button {
   border-radius: 25px;
   width: 200px;
