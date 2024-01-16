@@ -71,7 +71,6 @@ textarea:focus {
 #dialog input {
   width: 100%;
   resize: none;
-  white-space: unset;
   word-break: break-all;
 }
 #dialog_signature_status {
