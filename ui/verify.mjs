@@ -2,7 +2,7 @@ import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
 import { hex_to_key } from "../lib-mlsag-js/hex_to_key.mjs";
 import { memoryView, wasm } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
-import { getMessageHash } from "./getMessageHash.mjs";
+import { getKeysHash, getMessageHash } from "./getMessageHash.mjs";
 import {
   parsePublicKeys,
   ring_pub_keys_placeholder_text,
@@ -79,6 +79,10 @@ const onVerifyClick = () => {
       ensure(typeof signedMessage.mh === "string", "Wrong mh");
       ensure(signedMessage.mh?.length === 64, "Wrong mh length");
     }
+    if ("pkh" in signedMessage) {
+      ensure(typeof signedMessage.pkh === "string", "Wrong pkh");
+      ensure(signedMessage.pkh?.length === 64, "Wrong pkh length");
+    }
     ensure(typeof signedMessage.sig === "object", "Wrong sig property");
     ensure(typeof signedMessage.sig.II === "string", "Wrong sig.II");
     ensure(signedMessage.sig.II.length === 64, "Wrong sig.II length");
@@ -108,6 +112,13 @@ const onVerifyClick = () => {
       ensure(
         array_to_hex(messageHash) === signedMessage.mh,
         `Inconsistent message and hash`
+      );
+    }
+
+    if ("pkh" in signedMessage) {
+      ensure(
+        array_to_hex(getKeysHash(ringPubKeys)) === signedMessage.pkh,
+        `This message was signed by another set of public keys`
       );
     }
 
