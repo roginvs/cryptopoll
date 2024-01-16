@@ -37,6 +37,17 @@ const dialog_message_text_el = /**@type {HTMLTextAreaElement} */ (
   byId("dialog_message_text")
 );
 
+/**
+ *
+ * @param {boolean} what
+ * @param {string} message
+ */
+function ensure(what, message) {
+  if (!what) {
+    throw new Error(message);
+  }
+}
+
 const onVerifyClick = () => {
   dialog_signature_status_el.classList.remove("dialog_signature_status_error");
   dialog_verification_fail_el.style.display = "none";
@@ -58,26 +69,46 @@ const onVerifyClick = () => {
       throw new Error(`Malformed signed message`);
     }
 
-    if (
-      typeof signedMessage.m !== "string" ||
-      typeof signedMessage.mh !== "string" ||
-      typeof signedMessage.sig !== "object" ||
-      typeof signedMessage.sig.II !== "string" ||
-      typeof signedMessage.sig.cc !== "string" ||
-      typeof signedMessage.sig.ss !== "object" ||
-      !Array.isArray(signedMessage.sig.ss) ||
-      signedMessage.sig.ss.some((x) => typeof x !== "string")
-    ) {
-      throw new Error(`Malformed signed message`);
-    }
+    ensure(
+      typeof signedMessage === "object",
+      "Signed message must be an object"
+    );
 
-    if (ringPubKeys.length !== signedMessage.sig.ss.length) {
-      throw new Error(`Public keys and signed message ring differs`);
+    ensure(typeof signedMessage.m === "string", "No message");
+    if ("mh" in signedMessage) {
+      ensure(typeof signedMessage.mh === "string", "Wrong mh");
+      ensure(signedMessage.mh?.length === 64, "Wrong mh length");
     }
+    ensure(typeof signedMessage.sig === "object", "Wrong sig property");
+    ensure(typeof signedMessage.sig.II === "string", "Wrong sig.II");
+    ensure(signedMessage.sig.II.length === 64, "Wrong sig.II length");
+    ensure(typeof signedMessage.sig.cc === "string", "Wrong sig.II");
+    ensure(signedMessage.sig.cc.length === 64, "Wrong sig.II length");
+    ensure(
+      typeof signedMessage.sig.ss === "object",
+      "Wrong sig.ss, not an object"
+    );
+    ensure(Array.isArray(signedMessage.sig.ss), "Wrong sig.ss, not an array");
+    ensure(
+      signedMessage.sig.ss.every((x) => typeof x === "string"),
+      "Wrong sig.ss element"
+    );
+    ensure(
+      signedMessage.sig.ss.every((x) => x.length === 64),
+      "Wrong sig.ss element length"
+    );
+
+    ensure(
+      ringPubKeys.length === signedMessage.sig.ss.length,
+      `Public keys and signed message ring differs`
+    );
 
     const messageHash = getMessageHash(signedMessage.m);
-    if (array_to_hex(messageHash) !== signedMessage.mh) {
-      throw new Error(`Inconsistent message and hash`);
+    if ("mh" in signedMessage) {
+      ensure(
+        array_to_hex(messageHash) === signedMessage.mh,
+        `Inconsistent message and hash`
+      );
     }
 
     // [message, key1, ... , keyN]
