@@ -1,7 +1,5 @@
 import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
-import { hex_to_key } from "../lib-mlsag-js/hex_to_key.mjs";
-import { keccak } from "../lib-mlsag-wasm/funcs.mjs";
-import { memoryView, wasm } from "../lib-mlsag-wasm/index.mjs";
+import { LSAG_Verify, keccak } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
 import { getMessageHash } from "./getMessageHash.mjs";
 import {
@@ -123,35 +121,12 @@ const onVerifyClick = () => {
       );
     }
 
-    // [message, key1, ... , keyN]
-    dataAddr = wasm.allocate_keys(ringPubKeys.length + 1);
-    memoryView.set(messageHash, dataAddr);
-    for (let i = 0; i < ringPubKeys.length; i++) {
-      memoryView.set(ringPubKeys[i], dataAddr + 32 + 32 * i);
-    }
-
-    // [II, cc, ss1, ... , ssN ]
-    sigAddr = wasm.allocate_keys(ringPubKeys.length + 2);
-    memoryView.set(hex_to_key(signedMessage.sig.II), sigAddr);
-    memoryView.set(hex_to_key(signedMessage.sig.cc), sigAddr + 32);
-    for (let i = 0; i < ringPubKeys.length; i++) {
-      memoryView.set(
-        hex_to_key(signedMessage.sig.ss[i]),
-        sigAddr + 32 + 32 + 32 * i
-      );
-    }
-
-    try {
-      const result = wasm.LSAG_Verify(
-        dataAddr,
-        ringPubKeys.length,
-        dataAddr + 32,
-        sigAddr
-      );
-      if (!result) {
-        throw new Error();
-      }
-    } catch (e) {
+    const verifyResult = LSAG_Verify(
+      messageHash,
+      ringPubKeys,
+      signedMessage.sig
+    );
+    if (!verifyResult) {
       throw new Error(`Wrong signature`);
     }
 
@@ -167,13 +142,6 @@ const onVerifyClick = () => {
 
     dialog_signature_errortext_el.innerText =
       e instanceof Error ? e.message : `${e}`;
-  } finally {
-    if (dataAddr) {
-      wasm.free_keys(dataAddr);
-    }
-    if (sigAddr) {
-      wasm.free_keys(sigAddr);
-    }
   }
 
   dialog_el.showModal();
