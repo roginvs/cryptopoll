@@ -2,7 +2,7 @@
  * @param {Uint8Array} key
  */
 
-import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
+import { array_to_hex, hex_to_array } from "../lib-mlsag-js/bytes.mjs";
 import { memoryView, wasm } from "./index.mjs";
 
 /**
@@ -96,6 +96,67 @@ export function LSAG_Signature(message, privateKey, publicKeys) {
     wasm.free_keys(privAddr);
     wasm.free_keys(sigAddr);
   }
+}
+
+/**
+ *
+ * @param {Uint8Array | string} key
+ */
+function toKey(key) {
+  const out = typeof key === "string" ? hex_to_array(key) : key;
+  assertKey(out);
+  return out;
+}
+/**
+ * @param { string | Uint8Array } message
+ * @param { (string | Uint8Array)[] } publicKeys
+ * @param { import("../lib-mlsag-js/ringct.types").LSAG_Signature<string | Uint8Array>} signature
+ */
+export function LSAG_Verify(message, publicKeys, signature) {
+  let dataAddr = 0;
+  let sigAddr = 0;
+  try {
+    // [message, key1, ... , keyN]
+    dataAddr = wasm.allocate_keys(publicKeys.length + 1);
+    memoryView.set(toKey(message), dataAddr);
+    for (let i = 0; i < publicKeys.length; i++) {
+      memoryView.set(toKey(publicKeys[i]), dataAddr + 32 + 32 * i);
+    }
+
+    // [II, cc, ss1, ... , ssN ]
+    sigAddr = wasm.allocate_keys(publicKeys.length + 2);
+    memoryView.set(toKey(signature.II), sigAddr);
+    memoryView.set(toKey(signature.cc), sigAddr + 32);
+    for (let i = 0; i < publicKeys.length; i++) {
+      memoryView.set(toKey(signature.ss[i]), sigAddr + 32 + 32 + 32 * i);
+    }
+
+    try {
+      const result = wasm.LSAG_Verify(
+        dataAddr,
+        publicKeys.length,
+        dataAddr + 32,
+        sigAddr
+      );
+      if (!result) {
+        throw new Error();
+      }
+    } catch (e) {
+      throw new Error(`Wrong signature`);
+    }
+  } catch (e) {
+    console.info(e);
+    return false;
+  } finally {
+    if (dataAddr) {
+      wasm.free_keys(dataAddr);
+    }
+    if (sigAddr) {
+      wasm.free_keys(sigAddr);
+    }
+  }
+
+  return true;
 }
 
 /**
