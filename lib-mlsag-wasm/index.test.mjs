@@ -1,8 +1,7 @@
 import test from "node:test";
-import { memoryView, wasm } from "./index.mjs";
 import assert from "node:assert";
 import { array_to_hex, hex_to_array } from "../lib-mlsag-js/bytes.mjs";
-import { getPublicKeyFromPrivateKey, keccak } from "./funcs.mjs";
+import { getPublicKeyFromPrivateKey, keccak } from "./index.mjs";
 
 test("Wasm library", () => {
   const privateKey = [

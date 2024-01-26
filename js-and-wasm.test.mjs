@@ -1,5 +1,4 @@
 import test from "node:test";
-import { memoryView, wasm } from "./lib-mlsag-wasm/index.mjs";
 import * as libMlsagJs from "./lib-mlsag-js/ringct.mjs";
 import assert from "node:assert";
 import {
@@ -7,7 +6,7 @@ import {
   LSAG_Verify,
   generatePrivateKey,
   getPublicKeyFromPrivateKey,
-} from "./lib-mlsag-wasm/funcs.mjs";
+} from "./lib-mlsag-wasm/index.mjs";
 
 for (const keyLen of [3, 4, 5]) {
   for (const index of new Array(keyLen).fill(0).map((_, i) => i)) {

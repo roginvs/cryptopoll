@@ -3,7 +3,7 @@
  */
 
 import { array_to_hex, hex_to_array } from "../lib-mlsag-js/bytes.mjs";
-import { memoryView, wasm } from "./index.mjs";
+import { memoryView, wasm } from "./wasm.mjs";
 
 /**
  * @param {Uint8Array} key
@@ -93,6 +93,9 @@ export function LSAG_Signature(message, privateKey, publicKeys) {
   } finally {
     wasm.free_keys(pubkeysAddrs);
     wasm.free_keys(messageAddr);
+    if (privAddr) {
+      memoryView.set(new Uint8Array(32).fill(0), privAddr);
+    }
     wasm.free_keys(privAddr);
     wasm.free_keys(sigAddr);
   }
