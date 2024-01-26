@@ -1,8 +1,9 @@
 import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
 import { hex_to_key } from "../lib-mlsag-js/hex_to_key.mjs";
+import { keccak } from "../lib-mlsag-wasm/funcs.mjs";
 import { memoryView, wasm } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
-import { getKeysHash, getMessageHash } from "./getMessageHash.mjs";
+import { getMessageHash } from "./getMessageHash.mjs";
 import {
   parsePublicKeys,
   ring_pub_keys_placeholder_text,
@@ -117,7 +118,7 @@ const onVerifyClick = () => {
 
     if ("pkh" in signedMessage) {
       ensure(
-        array_to_hex(getKeysHash(ringPubKeys)) === signedMessage.pkh,
+        array_to_hex(keccak(ringPubKeys)) === signedMessage.pkh,
         `This message was signed by another set of public keys`
       );
     }
