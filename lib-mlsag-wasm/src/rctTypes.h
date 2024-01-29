@@ -34,7 +34,6 @@
 
 #include <cstddef>
 #include <vector>
-#include <iostream>
 #include <cinttypes>
 #include "crypto_verify_32.h"
 #include "crypto-ops.h"
