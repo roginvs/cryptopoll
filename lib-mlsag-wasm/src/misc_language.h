@@ -27,7 +27,7 @@ private:
 };
 
 // create_scope_leave_handler is a function that creates a ScopeLeaveHandler.
-auto create_scope_leave_handler(std::function<void()> onScopeLeave)
+static inline auto create_scope_leave_handler(std::function<void()> onScopeLeave)
 {
     return std::make_unique<ScopeLeaveHandler>(onScopeLeave);
 }
