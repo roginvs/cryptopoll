@@ -36,8 +36,9 @@ key *LSAG_Signature(
     __attribute__((export_name("LSAG_Signature")))
 {
     keyV xx{*privateKey};
-    auto wiper = create_scope_leave_handler([&]()
-                                            { memwipe(xx[0].bytes, sizeof(xx[0])); });
+    auto wiper = create_scope_leave_handler(
+        [&]()
+        { memwipe(xx[0].bytes, sizeof(xx[0])); });
 
     keyM pk;
     pk.resize(public_keys_length);
