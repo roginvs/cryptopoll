@@ -17,6 +17,7 @@ function assertKey(key) {
   }
 }
 /**
+ * Provided a private key it calculates corresponding public key
  * @param {Uint8Array} key
  */
 export function getPublicKeyFromPrivateKey(key) {
@@ -31,6 +32,9 @@ export function getPublicKeyFromPrivateKey(key) {
   return buf;
 }
 
+/**
+ * This function generates unbiased private key and returns it in a buffer
+ */
 export function generatePrivateKey() {
   const addr = wasm.allocate_keys(1);
   wasm.skGen(addr);
@@ -41,7 +45,7 @@ export function generatePrivateKey() {
 }
 
 /**
- *
+ * Generate a LSAG signature
  * @param {Uint8Array} message
  * @param {Uint8Array} privateKey
  * @param {Uint8Array[]} publicKeys
@@ -111,6 +115,7 @@ function toKey(key) {
   return out;
 }
 /**
+ * Verify LSAG signature
  * @param { string | Uint8Array } message
  * @param { (string | Uint8Array)[] } publicKeys
  * @param { import("../lib-mlsag-js/ringct.types").LSAG_Signature<string | Uint8Array>} signature
@@ -163,6 +168,7 @@ export function LSAG_Verify(message, publicKeys, signature) {
 }
 
 /**
+ * Calculate keccak hash from provided data
  * @param {Uint8Array | Uint8Array[]} data
  */
 export function keccak(data) {
