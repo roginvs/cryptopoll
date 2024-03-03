@@ -1,6 +1,8 @@
 #ifndef _MISC_LOG_EX_H_
 #define _MISC_LOG_EX_H_
 
+#include <stdexcept>
+
 #define ASSERT_MES_AND_THROW(message)      \
     {                                      \
         throw std::runtime_error(message); \
