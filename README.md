@@ -1,6 +1,6 @@
 # Cryptopoll
 
-Did you even thought about having a reliable digital poll with zero trust?
+Did you ever thought about having a reliable digital poll with zero trust?
 
 Nowadays it is possible using linkable spontaneous anonymous group (LSAG) signature which is a powerful cryptographic tool that ensures the anonymity of participants while preserving the integrity of a group's decisions.
 
