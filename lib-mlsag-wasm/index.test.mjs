@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert";
-import { array_to_hex, hex_to_array } from "../lib-mlsag-js/bytes.mjs";
+import { array_to_hex, hex_to_array } from "./bytes.mjs";
 import { getPublicKeyFromPrivateKey, keccak } from "./index.mjs";
 
 test("Wasm library", () => {

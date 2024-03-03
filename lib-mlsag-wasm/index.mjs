@@ -2,7 +2,7 @@
  * @param {Uint8Array} key
  */
 
-import { array_to_hex, hex_to_array } from "../lib-mlsag-js/bytes.mjs";
+import { array_to_hex, hex_to_array } from "./bytes.mjs";
 import { memoryView, wasm } from "./wasm.mjs";
 
 /**
@@ -71,7 +71,7 @@ export function LSAG_Signature(message, privateKey, publicKeys) {
       pubkeysAddrs
     );
 
-    /** @type {import("../lib-mlsag-js/ringct.types").LSAG_Signature<string>} */
+    /** @type {import("./ringct.types").LSAG_Signature<string>} */
     const sig = {
       II: array_to_hex(memoryView.subarray(sigAddr, sigAddr + 32)),
       cc: array_to_hex(memoryView.subarray(sigAddr + 32, sigAddr + 32 + 32)),
@@ -113,7 +113,7 @@ function toKey(key) {
 /**
  * @param { string | Uint8Array } message
  * @param { (string | Uint8Array)[] } publicKeys
- * @param { import("../lib-mlsag-js/ringct.types").LSAG_Signature<string | Uint8Array>} signature
+ * @param { import("./ringct.types").LSAG_Signature<string | Uint8Array>} signature
  */
 export function LSAG_Verify(message, publicKeys, signature) {
   let dataAddr = 0;
