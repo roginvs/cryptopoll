@@ -115,7 +115,7 @@ int main()
     if (!isOk)
     {
         printf("\nERRRORORRORORORORR\n");
-        exit(100);
+        return 100;
     }
     else
     {
