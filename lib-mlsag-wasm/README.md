@@ -15,9 +15,11 @@ make
 cp lib-mlsag.wasm ..
 ```
 
-## Building demo
+## Building CLI
 
 ```sh
+sudo apt-get install nlohmann-json3-dev
+
 mkdir build
 cd build
 cmake ..

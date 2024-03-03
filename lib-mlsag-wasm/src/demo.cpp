@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include "rctSigs.h"
+#include <nlohmann/json.hpp>
 
 void printHex(unsigned const char *c)
 {
@@ -12,6 +13,7 @@ void printHex(unsigned const char *c)
 
 int main()
 {
+
     int RING_SIZE = 8;
     int ROWS = 5;
     int DS_ROWS = 3;
