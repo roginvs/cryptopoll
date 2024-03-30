@@ -10,6 +10,7 @@ import { byId } from "./byId.mjs";
 import { getMessageHash } from "./utils/getMessageHash.mjs";
 import { ring_pub_keys_placeholder_text } from "./signverify.mjs";
 import { parsePublicKeys } from "./utils/parsePublicKeys.mjs";
+import { endcode_public_key } from "./utils/sshkeys.mjs";
 
 /**
  * @param {Uint8Array} privateKey
@@ -19,7 +20,9 @@ function startWithPrivateKey(privateKey) {
   keypair_info_el.classList.add("keypair_info_ready");
 
   const publicKeyBuf = getPublicKeyFromPrivateKey(privateKey);
-  public_key_el.innerText = array_to_hex(publicKeyBuf);
+
+  //public_key_el.innerText = array_to_hex(publicKeyBuf);
+  public_key_el.innerText = endcode_public_key(publicKeyBuf);
 
   const message_el = /** @type {HTMLTextAreaElement} */ (byId("message"));
   const ring_pub_keys_el = /** @type {HTMLTextAreaElement} */ (
