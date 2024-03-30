@@ -21,7 +21,6 @@ function startWithPrivateKey(privateKey) {
 
   const publicKeyBuf = getPublicKeyFromPrivateKey(privateKey);
 
-  //public_key_el.innerText = array_to_hex(publicKeyBuf);
   public_key_el.innerText = endcode_public_key(publicKeyBuf);
 
   const message_el = /** @type {HTMLTextAreaElement} */ (byId("message"));
