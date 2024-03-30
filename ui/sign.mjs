@@ -7,9 +7,9 @@ import {
   keccak,
 } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
-import { getMessageHash } from "./getMessageHash.mjs";
+import { getMessageHash } from "./utils/getMessageHash.mjs";
 import { ring_pub_keys_placeholder_text } from "./signverify.mjs";
-import { parsePublicKeys } from "./parsePublicKeys.mjs";
+import { parsePublicKeys } from "./utils/parsePublicKeys.mjs";
 
 /**
  * @param {Uint8Array} privateKey

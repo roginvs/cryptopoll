@@ -1,4 +1,4 @@
-import { keccak } from "../lib-mlsag-wasm/index.mjs";
+import { keccak } from "../../lib-mlsag-wasm/index.mjs";
 import { stringToUTF8Array } from "./stringToUtf8Array.mjs";
 
 /**

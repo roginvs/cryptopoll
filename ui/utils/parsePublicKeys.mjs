@@ -1,4 +1,4 @@
-import { hex_to_key } from "../lib-mlsag-js/hex_to_key.mjs";
+import { hex_to_key } from "../../lib-mlsag-js/hex_to_key.mjs";
 
 /**
  *

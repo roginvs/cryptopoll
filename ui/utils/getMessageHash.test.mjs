@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import { getMessageHash } from "./getMessageHash.mjs";
-import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
+import { array_to_hex } from "../../lib-mlsag-js/bytes.mjs";
 
 test("getMessageHash", () => {
   assert.strictEqual(
