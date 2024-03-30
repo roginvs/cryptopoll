@@ -59,3 +59,18 @@ export function get_public_key_buf_from_ssh_ed25519_public_key(s) {
     throw new Error("Not a ssh ed25519 public key");
   }
 }
+
+/**
+ * @param {Uint8Array} buf
+ */
+export function endcode_public_key(buf) {
+  if (buf.length !== 0x20) {
+    throw new Error(`Not a ed25519 key`);
+  }
+  return (
+    magicString +
+    " " +
+    base64magicWithLenPrefix +
+    btoa(String.fromCharCode(0x0, 0x0, 0x0, 0x20, ...buf))
+  );
+}
