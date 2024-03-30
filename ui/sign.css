@@ -9,12 +9,14 @@
   color: inherit;
 }
 
+#public_key_options {
+  margin-left: 24px;
+}
 #public_key_options img {
   height: 1em;
   width: 1em;
   transform: translateY(3px);
   opacity: 0.7;
-  margin-left: 8px;
 }
 
 #public_key {
