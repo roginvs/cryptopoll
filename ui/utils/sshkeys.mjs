@@ -1,20 +1,11 @@
+import { base64tobuf } from "./base64tobuf.mjs";
+
 const magicString = "ssh-ed25519";
 const base64magicWithLenPrefix = "AAAAC3NzaC1lZDI1NTE5";
 
 /** @param {string} s  */
 export function is_ssh_ed25519_public_key(s) {
   return s.startsWith(magicString) || s.startsWith(base64magicWithLenPrefix);
-}
-
-/**
- * @param {string} s
- */
-function base64tobuf(s) {
-  // Contains symbols with codes 0x00 to 0xFF
-  const bufStr = atob(s);
-  const buf = new Uint8Array([...bufStr].map((c) => c.charCodeAt(0)));
-
-  return buf;
 }
 
 /**
