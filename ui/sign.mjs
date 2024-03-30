@@ -7,11 +7,9 @@ import {
   keccak,
 } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
-import { getMessageHash } from "./getMessageHash.mjs";
-import {
-  parsePublicKeys,
-  ring_pub_keys_placeholder_text,
-} from "./signverify.mjs";
+import { getMessageHash } from "./utils/getMessageHash.mjs";
+import { ring_pub_keys_placeholder_text } from "./signverify.mjs";
+import { parsePublicKeys } from "./utils/parsePublicKeys.mjs";
 
 /**
  * @param {Uint8Array} privateKey
@@ -82,7 +80,7 @@ function startWithPrivateKey(privateKey) {
 
       const sig = LSAG_Signature(messageHash, privateKey, ringPubKeys);
 
-      /** @type {import("./signedmessage.types").SignedMessage} */
+      /** @type {import("./utils/signedmessage.types").SignedMessage} */
       const signedMessage = {
         m: message,
         mh: array_to_hex(messageHash),

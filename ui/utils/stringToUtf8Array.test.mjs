@@ -1,7 +1,7 @@
 import test from "node:test";
 import { stringToUTF8Array } from "./stringToUtf8Array.mjs";
 import assert from "node:assert";
-import { array_to_hex } from "../lib-mlsag-js/bytes.mjs";
+import { array_to_hex } from "../../lib-mlsag-js/bytes.mjs";
 
 const testData = {
   asd: "617364",
