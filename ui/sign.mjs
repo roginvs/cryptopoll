@@ -80,7 +80,7 @@ function startWithPrivateKey(privateKey) {
 
       const sig = LSAG_Signature(messageHash, privateKey, ringPubKeys);
 
-      /** @type {import("./signedmessage.types").SignedMessage} */
+      /** @type {import("./utils/signedmessage.types").SignedMessage} */
       const signedMessage = {
         m: message,
         mh: array_to_hex(messageHash),

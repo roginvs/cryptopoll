@@ -1,4 +1,4 @@
-import { LSAG_Signature } from "../lib-mlsag-js/ringct.types";
+import { LSAG_Signature } from "../../lib-mlsag-js/ringct.types";
 
 export interface SignedMessage {
   /** A message itself */
