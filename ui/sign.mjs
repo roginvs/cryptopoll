@@ -8,10 +8,8 @@ import {
 } from "../lib-mlsag-wasm/index.mjs";
 import { byId } from "./byId.mjs";
 import { getMessageHash } from "./getMessageHash.mjs";
-import {
-  parsePublicKeys,
-  ring_pub_keys_placeholder_text,
-} from "./signverify.mjs";
+import { ring_pub_keys_placeholder_text } from "./signverify.mjs";
+import { parsePublicKeys } from "./parsePublicKeys.mjs";
 
 /**
  * @param {Uint8Array} privateKey
