@@ -12,10 +12,9 @@ export function is_ssh_ed25519_public_key(s) {
 }
 
 /**
- * @param {string} s
+ * @param {Uint8Array} buf
  */
-function get_public_key_buf_from_ssh_ed25519_public_key_base64(s) {
-  const buf = base64tobuf(s);
+function get_public_key_buf_from_ssh_ed25519_public_key_buf(buf) {
   const prefixBuf = base64tobuf(base64magicWithLenPrefix);
   if (buf.length !== prefixBuf.length + 4 + 0x20) {
     throw new Error("Wrong length");
@@ -28,6 +27,10 @@ function get_public_key_buf_from_ssh_ed25519_public_key_base64(s) {
     buf[prefixBuf.length + 3] !== 0x20
   ) {
     throw new Error("Wrong length part");
+  }
+
+  if (buf.length !== prefixBuf.length + 4 + 0x20) {
+    throw new Error("Wrong length");
   }
 
   return buf.subarray(prefixBuf.length + 4);
@@ -45,10 +48,14 @@ export function get_public_key_buf_from_ssh_ed25519_public_key(s) {
     if (!base64) {
       throw new Error("Not a ssh ed25519 public key, no base64 part");
     }
-    return get_public_key_buf_from_ssh_ed25519_public_key_base64(base64);
+    return get_public_key_buf_from_ssh_ed25519_public_key_buf(
+      base64tobuf(base64)
+    );
   } else if (s.startsWith(base64magicWithLenPrefix)) {
     const base64 = s.split(/\s+/)[0];
-    return get_public_key_buf_from_ssh_ed25519_public_key_base64(base64);
+    return get_public_key_buf_from_ssh_ed25519_public_key_buf(
+      base64tobuf(base64)
+    );
   } else {
     throw new Error("Not a ssh ed25519 public key");
   }
@@ -182,7 +189,7 @@ function read_ed25519_priv_key(buf) {
   const privBuf = privAndPub.subarray(0, 0x20);
   const pubBuf = privAndPub.subarray(0x20, 0x40);
 
-  for (let i = 0; i < 0x20; i++) {
+  for (let i = 0; i < publicKeyBufAgain.length; i++) {
     if (pubBuf[i] !== publicKeyBufAgain[i]) {
       throw new Error(`Public key mismatch at pos=${i}`);
     }
@@ -200,7 +207,7 @@ function read_ed25519_priv_key(buf) {
     i++;
   }
 
-  return privBuf;
+  return [privBuf, pubBuf];
 }
 
 /**
@@ -237,10 +244,18 @@ export function decode_ssh_privatekey_buf(buf) {
   }
 
   const publicKeyBuf = reader.readStringBuf();
+  const publicKey =
+    get_public_key_buf_from_ssh_ed25519_public_key_buf(publicKeyBuf);
+
   const privateKeyBuf = reader.readStringBuf();
   reader.checkEnd();
 
-  const privkey = read_ed25519_priv_key(privateKeyBuf);
+  const [privkey, publicKeyBufAgain] = read_ed25519_priv_key(privateKeyBuf);
+  for (let i = 0; i < publicKey.length; i++) {
+    if (publicKey[i] !== publicKeyBufAgain[i]) {
+      throw new Error(`Public key mismatch at pos=${i}`);
+    }
+  }
 
   return privkey;
 }
