@@ -1,5 +1,6 @@
 import assert from "assert";
 import {
+  decode_ssh_privatekey,
   endcode_public_key,
   get_public_key_buf_from_ssh_ed25519_public_key,
 } from "./sshkeys.mjs";
@@ -46,4 +47,18 @@ describe(`endcode_public_key`, () => {
       validKey
     );
   });
+});
+
+describe(`decode_ssh_privatekey`, () => {
+  const keyStr = `
+    -----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACD5o+DX1RWQWhi10rskqfM9SJuE8l/8Gf1qGQWmoo0fLwAAAJj7TkVd+05F
+XQAAAAtzc2gtZWQyNTUxOQAAACD5o+DX1RWQWhi10rskqfM9SJuE8l/8Gf1qGQWmoo0fLw
+AAAEAsyvrtgqL3xHsbR6N0l2OigSW3ABG/dkf85vT4brSi/fmj4NfVFZBaGLXSuySp8z1I
+m4TyX/wZ/WoZBaaijR8vAAAADnZhc2lsaWlAY2FyYm9uAQIDBAUGBw==
+-----END OPENSSH PRIVATE KEY-----
+
+    `;
+  assert.deepStrictEqual(decode_ssh_privatekey(keyStr), { x: 1 });
 });
