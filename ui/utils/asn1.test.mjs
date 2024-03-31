@@ -38,7 +38,7 @@ describe(`Asn tools`, () => {
         { type: "integer", value: new Uint8Array([0]) },
         {
           type: "sequence",
-          value: [{ type: "oid", value: new Uint8Array([43, 101, 112]) }],
+          value: [{ type: "oid", value: new Uint8Array([0x2b, 0x65, 0x70]) }],
         },
         {
           type: "octetstring",
