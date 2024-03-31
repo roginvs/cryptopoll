@@ -83,21 +83,26 @@ export function endcode_public_key(buf) {
  */
 export function decode_ssh_secret(str) {
   const s = str
-    .split(/\s|\r|\n/)
+    .split(/\r|\n/)
     .filter((x) => x)
     .join("");
 
-  const beginStr = "-----BEGIN OPENSSH PRIVATE KEY-----".split(" ").join("");
+  const beginStr = "-----BEGIN OPENSSH PRIVATE KEY-----";
   if (!s.startsWith(beginStr)) {
     console.info(`kek`, s);
     throw new Error(`Key do not starts with ${beginStr}`);
   }
-  const endStr = "-----END OPENSSH PRIVATE KEY-----".split(" ").join("");
+  const endStr = "-----END OPENSSH PRIVATE KEY-----";
   if (!s.endsWith(endStr)) {
     throw new Error(`Key do not ends with ${endStr}`);
   }
   const base64str = s.slice(beginStr.length, s.length - endStr.length);
-  const buf = base64tobuf(base64str);
+  const buf = base64tobuf(
+    base64str
+      .split(/\s/)
+      .filter((x) => x)
+      .join("")
+  );
   return decode_ssh_secret_buf(buf);
 }
 
