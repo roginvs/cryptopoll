@@ -18,10 +18,12 @@ import { decode_ssh_keyfile, endcode_public_key } from "./utils/sshkeys.mjs";
 function startWithPrivateKey(privateKey) {
   keypair_info_el.innerHTML = "This is your public key. Share it with everyone";
   keypair_info_el.classList.add("keypair_info_ready");
+  keypair_info_el.style.display = "";
 
   const publicKeyBuf = getPublicKeyFromPrivateKey(privateKey);
 
   public_key_el.innerText = endcode_public_key(publicKeyBuf);
+  public_key_el.style.display = "";
 
   const message_el = /** @type {HTMLTextAreaElement} */ (byId("message"));
   const ring_pub_keys_el = /** @type {HTMLTextAreaElement} */ (
@@ -129,6 +131,9 @@ const keypair_info_el = byId("keypair_info");
 function start() {
   const savedKey = localStorage.getItem(LOCALSTORAGE_PRIV_KEY_KEY);
   if (!savedKey) {
+    keypair_info_el.style.display = "";
+    public_key_el.style.display = "";
+    public_key_el.innerText = "-".repeat(64);
     return;
   }
   const keyBuf = hex_to_key(savedKey);
@@ -136,6 +141,7 @@ function start() {
 }
 
 async function startGeneratePrivateKey() {
+  public_key_el.style.display = "";
   keypair_info_el.innerText = "Generating...";
   for (let i = 0; i < 64; i++) {
     public_key_el.innerText = "*".repeat(i + 1) + "-".repeat(64 - i - 1);
