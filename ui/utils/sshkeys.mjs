@@ -1,4 +1,6 @@
+import { getPublicKeyFromPrivateKey } from "../../lib-mlsag-wasm/index.mjs";
 import { base64tobuf } from "./base64tobuf.mjs";
+import { ed25519_secret_to_privatekey } from "./ed25519-secret-to-key.mjs";
 
 const ssh_ed25519_magic_str = "ssh-ed25519";
 const base64magicWithLenPrefix = "AAAAC3NzaC1lZDI1NTE5";
@@ -258,4 +260,20 @@ export function decode_ssh_secret_buf(buf) {
   }
 
   return [secret, publicKey];
+}
+
+/**
+ * @param {string} str
+ */
+export async function decode_ssh_keyfile(str) {
+  const [secret, publicKeyBufFromKeyfile] = decode_ssh_secret(str);
+  const privateKey = await ed25519_secret_to_privatekey(secret);
+  const publicKeyBufFromPrivate = getPublicKeyFromPrivateKey(privateKey);
+  for (let i = 0; i < publicKeyBufFromPrivate.length; i++) {
+    if (publicKeyBufFromPrivate[i] !== publicKeyBufFromKeyfile[i]) {
+      throw new Error(`Public key mismatch at pos=${i}`);
+    }
+  }
+
+  return [privateKey, publicKeyBufFromPrivate];
 }
