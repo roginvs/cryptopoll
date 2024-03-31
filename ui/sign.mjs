@@ -10,7 +10,7 @@ import { byId } from "./byId.mjs";
 import { getMessageHash } from "./utils/getMessageHash.mjs";
 import { ring_pub_keys_placeholder_text } from "./signverify.mjs";
 import { parsePublicKeys } from "./utils/parsePublicKeys.mjs";
-import { endcode_public_key } from "./utils/sshkeys.mjs";
+import { decode_ssh_keyfile, endcode_public_key } from "./utils/sshkeys.mjs";
 
 /**
  * @param {Uint8Array} privateKey
@@ -153,5 +153,22 @@ byId("generate_keypair").addEventListener("click", (e) => {
   e.preventDefault();
   startGeneratePrivateKey();
 });
+
+byId("import_keypair").addEventListener("click", (e) => {
+  e.preventDefault();
+  startImportPrivateKey().catch((e) => {
+    console.warn(e);
+    alert(`Error: ${e.message}`);
+  });
+});
+
+async function startImportPrivateKey() {
+  const privateKeyStr = prompt("Enter your openssh private key here:");
+  if (!privateKeyStr) {
+    return;
+  }
+  const [privKey] = await decode_ssh_keyfile(privateKeyStr);
+  startWithPrivateKey(privKey);
+}
 
 start();
