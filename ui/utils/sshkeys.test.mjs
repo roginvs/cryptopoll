@@ -49,7 +49,7 @@ describe(`endcode_public_key`, () => {
   });
 });
 
-describe(`decode_ssh_privatekey`, () => {
+describe(`decode_ssh_privatekey secret`, () => {
   const keyStr = `
     -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
@@ -60,5 +60,12 @@ m4TyX/wZ/WoZBaaijR8vAAAADnZhc2lsaWlAY2FyYm9uAQIDBAUGBw==
 -----END OPENSSH PRIVATE KEY-----
 
     `;
-  assert.deepStrictEqual(decode_ssh_privatekey(keyStr), { x: 1 });
+  assert.deepStrictEqual(
+    decode_ssh_privatekey(keyStr),
+    new Uint8Array([
+      44, 202, 250, 237, 130, 162, 247, 196, 123, 27, 71, 163, 116, 151, 99,
+      162, 129, 37, 183, 0, 17, 191, 118, 71, 252, 230, 244, 248, 110, 180, 162,
+      253,
+    ])
+  );
 });

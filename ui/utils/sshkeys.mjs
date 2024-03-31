@@ -154,8 +154,8 @@ function createByteReader(buf) {
 }
 
 /**
- *
  * @param {Uint8Array} buf
+ * Returns secret value
  */
 function read_ed25519_priv_key(buf) {
   const privReader = createByteReader(buf);
@@ -170,16 +170,26 @@ function read_ed25519_priv_key(buf) {
     throw new Error(`Wrong magic`);
   }
 
-  const secretBuf = privReader.readStringBuf();
-  if (secretBuf.length !== 0x20) {
-    throw new Error(`Wrong secret length`);
+  const publicKeyBufAgain = privReader.readStringBuf();
+  if (publicKeyBufAgain.length !== 0x20) {
+    throw new Error(`Wrong publicKeyBufAgain length`);
   }
 
-  const uuu = privReader.readStringBuf();
-  console.info(uuu.length);
+  const privAndPub = privReader.readStringBuf();
+  if (privAndPub.length !== 0x40) {
+    throw new Error(`Wrong privAndPub length`);
+  }
+  const privBuf = privAndPub.subarray(0, 0x20);
+  const pubBuf = privAndPub.subarray(0x20, 0x40);
 
-  const comment = privReader.readString();
-  console.info(`comment`, comment);
+  for (let i = 0; i < 0x20; i++) {
+    if (pubBuf[i] !== publicKeyBufAgain[i]) {
+      throw new Error(`Public key mismatch at pos=${i}`);
+    }
+  }
+
+  // comment string
+  privReader.readString();
 
   const paddingStart = privReader.getPos();
   let i = 0;
@@ -189,6 +199,8 @@ function read_ed25519_priv_key(buf) {
     }
     i++;
   }
+
+  return privBuf;
 }
 
 /**
@@ -230,5 +242,5 @@ export function decode_ssh_privatekey_buf(buf) {
 
   const privkey = read_ed25519_priv_key(privateKeyBuf);
 
-  return { x: 1 };
+  return privkey;
 }
