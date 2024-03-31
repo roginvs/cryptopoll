@@ -1,11 +1,11 @@
 import assert from "assert";
 import {
-  decode_ssh_privatekey,
+  decode_ssh_secret,
   endcode_public_key,
   get_public_key_buf_from_ssh_ed25519_public_key,
 } from "./sshkeys.mjs";
 import { describe, it } from "node:test";
-import { array_to_hex } from "../../lib-mlsag-js/bytes.mjs";
+import { array_to_hex, hex_to_array } from "../../lib-mlsag-js/bytes.mjs";
 
 describe("get_public_key_buf_from_ssh_ed25519_public_key", function () {
   it("should return public key for valid SSH public key", function () {
@@ -60,12 +60,14 @@ m4TyX/wZ/WoZBaaijR8vAAAADnZhc2lsaWlAY2FyYm9uAQIDBAUGBw==
 -----END OPENSSH PRIVATE KEY-----
 
     `;
-  assert.deepStrictEqual(
-    decode_ssh_privatekey(keyStr),
+  assert.deepStrictEqual(decode_ssh_secret(keyStr), [
     new Uint8Array([
       44, 202, 250, 237, 130, 162, 247, 196, 123, 27, 71, 163, 116, 151, 99,
       162, 129, 37, 183, 0, 17, 191, 118, 71, 252, 230, 244, 248, 110, 180, 162,
       253,
-    ])
-  );
+    ]),
+    hex_to_array(
+      "f9a3e0d7d515905a18b5d2bb24a9f33d489b84f25ffc19fd6a1905a6a28d1f2f"
+    ),
+  ]);
 });

@@ -79,7 +79,7 @@ export function endcode_public_key(buf) {
 /**
  * @param {string} str
  */
-export function decode_ssh_privatekey(str) {
+export function decode_ssh_secret(str) {
   const s = str
     .split(/\s|\r|\n/)
     .filter((x) => x)
@@ -96,7 +96,7 @@ export function decode_ssh_privatekey(str) {
   }
   const base64str = s.slice(beginStr.length, s.length - endStr.length);
   const buf = base64tobuf(base64str);
-  return decode_ssh_privatekey_buf(buf);
+  return decode_ssh_secret_buf(buf);
 }
 
 /**
@@ -164,7 +164,7 @@ function createByteReader(buf) {
  * @param {Uint8Array} buf
  * Returns secret value
  */
-function read_ed25519_priv_key(buf) {
+function read_ed25519_secret(buf) {
   const privReader = createByteReader(buf);
   const checkint1 = privReader.readUint32BE();
   const checkint2 = privReader.readUint32BE();
@@ -213,7 +213,7 @@ function read_ed25519_priv_key(buf) {
 /**
  * @param {Uint8Array} buf
  */
-export function decode_ssh_privatekey_buf(buf) {
+export function decode_ssh_secret_buf(buf) {
   const reader = createByteReader(buf);
 
   // "openssh-key-v1";
@@ -247,15 +247,15 @@ export function decode_ssh_privatekey_buf(buf) {
   const publicKey =
     get_public_key_buf_from_ssh_ed25519_public_key_buf(publicKeyBuf);
 
-  const privateKeyBuf = reader.readStringBuf();
+  const secretKeyBuf = reader.readStringBuf();
   reader.checkEnd();
 
-  const [privkey, publicKeyBufAgain] = read_ed25519_priv_key(privateKeyBuf);
+  const [secret, publicKeyBufAgain] = read_ed25519_secret(secretKeyBuf);
   for (let i = 0; i < publicKey.length; i++) {
     if (publicKey[i] !== publicKeyBufAgain[i]) {
       throw new Error(`Public key mismatch at pos=${i}`);
     }
   }
 
-  return privkey;
+  return [secret, publicKey];
 }
