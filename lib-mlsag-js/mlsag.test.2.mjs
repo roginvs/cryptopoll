@@ -4,6 +4,7 @@ import { MLSAG_Ver, MLSAG_Gen } from "./mlsag.mjs";
 import assert from "node:assert";
 import { B, ge_frombytes, ge_tobytes, point_power } from "./ed25519.mjs";
 import { getRandomValues } from "./getRandomValues.mjs";
+import { randomKeyUnbiased } from "./randomKeyUnbiased.mjs";
 
 for (const cols of [2, 3, 4]) {
   for (const index of new Array(cols).fill(0).map((_, i) => i)) {
@@ -15,9 +16,7 @@ for (const cols of [2, 3, 4]) {
 
           const allPrivateKeys = new Array(cols).fill([]).map(() =>
             new Array(rows).fill(new Uint8Array(0)).map(() => {
-              const x = new Uint8Array(32);
-              getRandomValues(x);
-              return x;
+              return randomKeyUnbiased();
             })
           );
           const allPublicKeys = allPrivateKeys.map((vec) =>

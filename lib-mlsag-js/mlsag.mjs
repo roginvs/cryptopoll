@@ -8,9 +8,9 @@ import {
   point_add,
   point_power,
 } from "./ed25519.mjs";
-import { getRandomValues } from "./getRandomValues.mjs";
 import { hash_to_p3 } from "./hash_to_p3.mjs";
 import { Keccak } from "./keccak.mjs";
+import { randomKeyUnbiased } from "./randomKeyUnbiased.mjs";
 
 /** @param {import("./mlsag.types").KeyV} toHash */
 function hash_arrays(toHash) {
@@ -173,7 +173,7 @@ export function MLSAG_Gen(message, pk, xx, index, dsRows) {
 
   /** @type {import("./mlsag.types").KeyV} */
   const alpha = new Array(rows).fill(new Uint8Array(0)).map(() => {
-    const buf = new Uint8Array(32);
+    const buf = new Uint8Array(0);
     // Will be filled with random data later
     return buf;
   });
@@ -190,7 +190,8 @@ export function MLSAG_Gen(message, pk, xx, index, dsRows) {
     toHash[3 * i + 1] = pk[index][i];
     const Hi = hash_to_p3(pk[index][i]);
 
-    getRandomValues(alpha[i]);
+    alpha[i] = randomKeyUnbiased();
+
     aG[i] = ge_tobytes(point_power(B, array_to_bigint_LE(alpha[i])));
     aHP[i] = ge_tobytes(point_power(Hi, array_to_bigint_LE(alpha[i])));
     rv.II[i] = ge_tobytes(point_power(Hi, array_to_bigint_LE(xx[i])));
@@ -202,7 +203,7 @@ export function MLSAG_Gen(message, pk, xx, index, dsRows) {
   for (let i = dsRows; i < rows; i++) {
     const ii = i - dsRows;
 
-    getRandomValues(alpha[i]);
+    alpha[i] = randomKeyUnbiased();
     aG[i] = ge_tobytes(point_power(B, array_to_bigint_LE(alpha[i])));
 
     toHash[ndsRows + 2 * ii + 1] = pk[index][i];
@@ -217,9 +218,7 @@ export function MLSAG_Gen(message, pk, xx, index, dsRows) {
   }
   while (i != index) {
     rv.ss[i] = new Array(rows).fill(new Uint8Array(0)).map(() => {
-      const b = new Uint8Array(32);
-      getRandomValues(b);
-      return b;
+      return randomKeyUnbiased();
     });
     for (let j = 0; j < dsRows; j++) {
       const L = ge_tobytes(
