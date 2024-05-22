@@ -37,13 +37,19 @@ function addShowingAnimations() {
     }
   );
   document
-    .querySelectorAll(".welcome_container p, .welcome_container h1")
+    .querySelectorAll(
+      ".welcome_container p, .welcome_container h1, .welcome_container h2"
+    )
     .forEach((el) => {
       observer.observe(el);
       if (el instanceof HTMLElement) {
         el.style.transition = "all 300ms ease-out";
         el.style.transitionDelay =
-          el.tagName === "P" ? "600ms" : el.tagName === "H1" ? "300ms" : "";
+          {
+            P: "600ms",
+            H1: "300ms",
+            H2: "450ms",
+          }[el.tagName] || "";
       }
     });
 }
