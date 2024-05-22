@@ -28,6 +28,10 @@
     overflow-x: hidden;
   }
 
+  .pages {
+    padding-bottom: 20px;
+  }
+
   .space_eater {
     height: 60px;
   }
