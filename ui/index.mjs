@@ -2,11 +2,15 @@ import { byId } from "./byId.mjs";
 
 const pages = byId("pages");
 const learn_more = byId("learn_more");
+const learn_more_text = byId("learn_more_text");
 
 pages.addEventListener("scroll", (e) => {
   const isArrowHidden =
     pages.scrollHeight - pages.offsetHeight - pages.scrollTop < 200;
   learn_more.style.display = isArrowHidden ? "none" : "";
+
+  const isTextHidden = pages.scrollTop > 200;
+  learn_more_text.style.opacity = isTextHidden ? "0" : "0.7";
 });
 
 learn_more.addEventListener("click", () => {
@@ -33,13 +37,19 @@ function addShowingAnimations() {
     }
   );
   document
-    .querySelectorAll(".welcome_container p, .welcome_container h1")
+    .querySelectorAll(
+      ".welcome_container p, .welcome_container h1, .welcome_container h2"
+    )
     .forEach((el) => {
       observer.observe(el);
       if (el instanceof HTMLElement) {
         el.style.transition = "all 300ms ease-out";
         el.style.transitionDelay =
-          el.tagName === "P" ? "600ms" : el.tagName === "H1" ? "300ms" : "";
+          {
+            P: "600ms",
+            H1: "300ms",
+            H2: "450ms",
+          }[el.tagName] || "";
       }
     });
 }

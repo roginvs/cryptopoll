@@ -14,6 +14,7 @@
     <script type="module" src="./ui/index.mjs"></script>
 
     <div class="learn_more" id="learn_more">
+      <div class="learn_more_text" id="learn_more_text">More info</div>
       <div class="learn_more_arrow"></div>
     </div>
 
@@ -28,18 +29,12 @@
         <div class="welcome_container">
           <div>
             <h1>WELCOME TO CRYPTOPOLL</h1>
-            <h2>Secure crypto voting application</h2>
-
-            <div class="buttons">
-              <a class="button" href="./sign.html">
-                <img src="./ui/img/signature-svgrepo-com.svg" />
-                SIGN
-              </a>
-              <a class="button" href="./verify.html">
-                <img src="./ui/img/document-tick-svgrepo-com.svg" />
-                VERIFY
-              </a>
-            </div>
+            <h2>Secure and Anonymous Crypto Voting</h2>
+            <br />
+            <p>
+              This is the voting platform designed with modern cryptography to
+              ensure security and privacy for every vote.
+            </p>
           </div>
           <div>
             <img class="big_logo logo" src="./ui/img/logo.png" />
@@ -51,21 +46,15 @@
         <div class="space_eater"></div>
         <div class="welcome_container">
           <div>
-            <h1>What is this?</h1>
-
+            <h1>Overview</h1>
+            <p>Easy-to-use, digital polling in zero-trust environment.</p>
             <p>
-              Did you ever thought about having a reliable digital poll with
-              zero trust?
-            </p>
-            <p>
-              This project uses linkable spontaneous anonymous group (LSAG)
-              signatures, combining anonymity with security. This technology
-              ensures each vote is both private and protected against fraud,
-              integrating multiple public keys into a single, untraceable
-              signature to prevent double-voting and maintain election
-              integrity.
+              Thanks to cryptographic technology, you can trust that voting is
+              either completely fair and transparent, or that irrefutable
+              evidence of fraud is available.
             </p>
           </div>
+
           <div>
             <img
               loading="lazy"
@@ -80,86 +69,18 @@
         <div class="space_eater"></div>
         <div class="welcome_container">
           <div>
-            <h1>How to use</h1>
+            <h1>How to Use</h1>
             <p>
-              This web application simplifies the process of creating and
-              verifying linkable ring signatures for secure and private voting.
+              First, the voting organizer creates a new poll through the web
+              interface.
             </p>
+            <p>
+              The Poll Wizard will guide you through all necessary steps, such
+              as setting poll start and end dates and providing a list of
+              participants emails.
+            </p>
+          </div>
 
-            <p>Here's a step-by-step guide on the overall process:</p>
-          </div>
-          <div>
-            <img loading="lazy" class="page_image" src="./ui/img/people.png" />
-          </div>
-        </div>
-      </div>
-
-      <div class="page">
-        <div class="space_eater"></div>
-        <div class="welcome_container">
-          <div>
-            <h1>Step 1: Generate Key Pairs</h1>
-            <p>
-              First, all participants create their unique key pairs within the
-              "sign" page. These key pairs consist of a public key (shared with
-              the voting authority) and a private key (kept secret).
-            </p>
-          </div>
-          <div>
-            <img loading="lazy" class="page_image" src="./ui/img/dice.png" />
-          </div>
-        </div>
-      </div>
-
-      <div class="page">
-        <div class="space_eater"></div>
-        <div class="welcome_container">
-          <div>
-            <h1>Step 2: Publish Public Keys</h1>
-            <p>
-              Participants then submit their public keys to the voting
-              authority. These keys will be used to verify signatures but will
-              not reveal the identity of the signer.
-            </p>
-          </div>
-          <div>
-            <img loading="lazy" class="page_image" src="./ui/img/digits.png" />
-          </div>
-        </div>
-      </div>
-
-      <div class="page">
-        <div class="space_eater"></div>
-        <div class="welcome_container">
-          <div>
-            <h1>Step 3: Freeze the List</h1>
-            <p>
-              Once all public keys are collected, the voting authority freezes
-              the list of participating public keys. This step ensures that only
-              authorized participants can contribute to the voting process.
-            </p>
-          </div>
-          <div>
-            <img loading="lazy" class="page_image" src="./ui/img/list.png" />
-          </div>
-        </div>
-      </div>
-
-      <div class="page">
-        <div class="space_eater"></div>
-        <div class="welcome_container">
-          <div>
-            <h1>Step 4: Sign Your Message</h1>
-            <p>
-              Each participant can now sign their vote or message using their
-              private key and a full list of frozen public keys.
-            </p>
-            <p>
-              LSAG ensures that there is no way to determine which private key
-              was used to create this signature and it also ensures that it was
-              one of the key from the list.
-            </p>
-          </div>
           <div>
             <img
               loading="lazy"
@@ -174,23 +95,26 @@
         <div class="space_eater"></div>
         <div class="welcome_container">
           <div>
-            <h1>Step 5: Submit the Signature</h1>
+            <h1>Registration Phase</h1>
             <p>
-              After signing their message, participants send the signed message
-              to the voting authority, which immediately publishes all received
-              signatures.
+              During this phase, each participant receives an email containing a
+              private registration link and a public observation link to monitor
+              the voting process.
             </p>
             <p>
-              They can also use anonymous network like Tor to be protected from
-              tracking by IP address.
+              By following the registration link, participants are directed to a
+              secure webpage where a cryptographic key pair, including a private
+              and public key, is generated. The public key is then sent to the
+              system.
+            </p>
+            <p>
+              Registration is confirmed once the public key is received and
+              listed on the observation page.
             </p>
           </div>
+
           <div>
-            <img
-              loading="lazy"
-              class="page_image"
-              src="./ui/img/paperplanes.png"
-            />
+            <img loading="lazy" class="page_image" src="./ui/img/people.png" />
           </div>
         </div>
       </div>
@@ -199,20 +123,26 @@
         <div class="space_eater"></div>
         <div class="welcome_container">
           <div>
-            <h1>Final step: Verification</h1>
+            <h1>Voting Phase</h1>
             <p>
-              Now, anyone can verify that each vote or message was indeed signed
-              by someone from the authorized list of participants. The unique
-              key image generated for each signature ensures that no one can
-              vote multiple times or manipulate the results.
+              During this phase, each participant returns to the secure webpage
+              (via the email link or from bookmarks), fills out their ballot,
+              and clicks the submit button.
+            </p>
+            <p>
+              Clicking the submit button performs an in-browser signature of the
+              ballot, ensuring that the private key never leaves the
+              participant's device. The signed document is then uploaded to the
+              system.
+            </p>
+            <p>
+              Due to the use of ring signatures, it is impossible to determine
+              who exactly signed the ballot, and double-voting is prevented.
             </p>
           </div>
+
           <div>
-            <img
-              loading="lazy"
-              class="page_image"
-              src="./ui/img/agreement.png"
-            />
+            <img loading="lazy" class="page_image" src="./ui/img/digits.png" />
           </div>
         </div>
       </div>
@@ -221,14 +151,28 @@
         <div class="space_eater"></div>
         <div class="welcome_container">
           <div>
-            <h1>Summary</h1>
-            <p>Interested in trying an automated and user-friendly pipeline?</p>
-
+            <h1>Final Counting</h1>
             <p>
-              We also offer a service that automates the secure voting process,
-              making it accessible and straightforward for non-technical users.
-              Experience the ease of secure voting with just a few clicks.
+              During this phase, the system stops accepting ballots. Every
+              observer has access to the same list of signed ballots.
             </p>
+            <p>
+              The voting organizer then publishes the results, which can be
+              verified by every observer.
+            </p>
+          </div>
+
+          <div>
+            <img loading="lazy" class="page_image" src="./ui/img/list.png" />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Want to try?</h1>
             <p>
               Ready to get started or have questions? Contact us at
               <a href="mailto:cryptopoll.org@gmail.com"
@@ -236,9 +180,94 @@
               >
               to discover how our platform can transform your voting experience.
             </p>
+            <p>
+              You can also try signing or verifying arbitrary messages using the
+              buttons below.
+            </p>
+            <p class="navigate-buttons">
+              <a class="button" href="./sign.html">
+                <img src="./ui/img/signature-svgrepo-com.svg" />
+                SIGN
+              </a>
+              <a class="button" href="./verify.html">
+                <img src="./ui/img/document-tick-svgrepo-com.svg" />
+                VERIFY
+              </a>
+            </p>
+          </div>
+          <div>
+            <img loading="lazy" class="page_image" src="./ui/img/city2.webp" />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>FAQ</h1>
+            <p>
+              <strong
+                >I do not trust the voting authority or this system. Is it
+                secure?</strong
+              ><br />
+              Yes, this platform operates in a fully zero-trust environment,
+              meaning you do not have to trust anyone. The system is
+              open-source, based on Monero's LSAG implementation, and provides a
+              public API for alternative clients.
+            </p>
+            <p>
+              <strong>How can I be sure that my vote is counted?</strong><br />
+              You can verify the results yourself. The system is fully
+              transparent and verifiable.
+            </p>
+          </div>
+
+          <div>
+            <img loading="lazy" class="page_image" src="./ui/img/faq.webp" />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>FAQ</h1>
 
             <p>
-              If you have technical questions feel free to ask them on project
+              <strong>Can I vote multiple times?</strong><br />
+              No, the system is designed to prevent double-voting and ensure
+              that every vote is unique. This is achieved using ring signatures
+              and key images.
+            </p>
+            <p>
+              <strong
+                >My environment requires that intermediate results are hidden.
+                Is it possible?</strong
+              ><br />
+              Yes, the voting organizer can add a temporary public key to
+              encrypt each ballot. Once voting is complete, the corresponding
+              temporary private key will be published to participants by voting
+              organizer, allowing every voter to decrypt and verify the results.
+              This also prevents this system from knowning voting outcomes.
+            </p>
+          </div>
+
+          <div>
+            <img loading="lazy" class="page_image" src="./ui/img/faq2.webp" />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>Links</h1>
+
+            <p>
+              Project source code is available on
               <a href="https://github.com/roginvs/cryptopoll" target="_blank"
                 >github</a
               >.
