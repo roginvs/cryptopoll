@@ -106,7 +106,6 @@
 }
 
 .navigate-buttons {
-  /* margin-top: 80px; */
   gap: 20px;
   display: flex;
   flex-wrap: wrap;
