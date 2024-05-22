@@ -101,12 +101,15 @@
   filter: invert(1);
 }
 
+/** TODO REMOVE 
 .welcome_container .buttons {
+  
   margin-top: 80px;
   gap: 20px;
   display: flex;
   flex-wrap: wrap;
 }
+*/
 
 .welcome_container p {
   font-size: 18px;
