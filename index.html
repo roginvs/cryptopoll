@@ -177,30 +177,57 @@
           <div>
             <h1>FAQ</h1>
             <p>
-              I do not trust voting authority or this system, is it secure? Yes,
-              this is fully zero-trust environment so you do not have to trust
-              anyone. The system is open-source, based on Monero's LSAG
-              implementation, and have available public API for alternative
-              clients.
+              <strong
+                >I do not trust the voting authority or this system. Is it
+                secure?</strong
+              ><br />
+              Yes, this platform operates in a fully zero-trust environment,
+              meaning you do not have to trust anyone. The system is
+              open-source, based on Monero's LSAG implementation, and provides a
+              public API for alternative clients.
             </p>
             <p>
-              How can I be sure that my vote is counted? You can verify the
-              results by yourself. The system is fully transparent and
-              verifiable.
-            </p>
-            <p>
-              Can I vote multiple times? No, the system is designed to prevent
-              double-voting and to ensure that every vote is unique. This is
-              done by using ring signatures and key images.
-            </p>
-            <p>
-              My environment requires that intermediate results are hidden. Is
-              it possible? Yes, voting organizer can add a temporary public key
-              which will be used to encrypt every ballot. When voting is done
-              then the key will be published and everyone can decrypt the
-              results.
+              <strong>How can I be sure that my vote is counted?</strong><br />
+              You can verify the results yourself. The system is fully
+              transparent and verifiable.
             </p>
           </div>
+
+          <div>
+            TODO change image
+            <img
+              loading="lazy"
+              class="page_image"
+              src="./ui/img/humansign.png"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="space_eater"></div>
+        <div class="welcome_container">
+          <div>
+            <h1>FAQ</h1>
+
+            <p>
+              <strong>Can I vote multiple times?</strong><br />
+              No, the system is designed to prevent double-voting and ensure
+              that every vote is unique. This is achieved using ring signatures
+              and key images.
+            </p>
+            <p>
+              <strong
+                >My environment requires that intermediate results are hidden.
+                Is it possible?</strong
+              ><br />
+              Yes, the voting organizer can add a temporary public key to
+              encrypt each ballot. Once voting is complete, the corresponding
+              temporary private key will be published, allowing everyone to
+              decrypt and verify the results.
+            </p>
+          </div>
+
           <div>
             TODO change image
             <img
@@ -225,8 +252,8 @@
               to discover how our platform can transform your voting experience.
             </p>
             <p>
-              You can also try to sign or verify arbitrary messages using this
-              buttons
+              You can also try signing or verifying arbitrary messages using the
+              buttons below.
             </p>
             <p class="navigate-buttons">
               <a class="button" href="./sign.html">
