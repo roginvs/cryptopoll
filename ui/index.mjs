@@ -2,11 +2,15 @@ import { byId } from "./byId.mjs";
 
 const pages = byId("pages");
 const learn_more = byId("learn_more");
+const learn_more_text = byId("learn_more_text");
 
 pages.addEventListener("scroll", (e) => {
   const isArrowHidden =
     pages.scrollHeight - pages.offsetHeight - pages.scrollTop < 200;
   learn_more.style.display = isArrowHidden ? "none" : "";
+
+  const isTextHidden = pages.scrollTop > 200;
+  learn_more_text.style.opacity = isTextHidden ? "0" : "0.7";
 });
 
 learn_more.addEventListener("click", () => {
