@@ -65,14 +65,14 @@ export function get_public_key_buf_from_ssh_ed25519_public_key(s) {
 
 /**
  * @param {Uint8Array} buf
+ * @param {boolean} includeSshPrefix
  */
-export function endcode_public_key(buf) {
+export function endcode_public_key(buf, includeSshPrefix = true) {
   if (buf.length !== 0x20) {
     throw new Error(`Not a ed25519 key`);
   }
   return (
-    ssh_ed25519_magic_str +
-    " " +
+    (includeSshPrefix ? ssh_ed25519_magic_str + " " : "") +
     base64magicWithLenPrefix +
     btoa(String.fromCharCode(0x0, 0x0, 0x0, 0x20, ...buf))
   );

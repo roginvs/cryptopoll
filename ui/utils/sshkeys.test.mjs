@@ -48,6 +48,19 @@ describe(`endcode_public_key`, () => {
       validKey
     );
   });
+
+  it("encodes correctly without prefix", function () {
+    const validKey =
+      "AAAAC3NzaC1lZDI1NTE5AAAAIPmj4NfVFZBaGLXSuySp8z1Im4TyX/wZ/WoZBaaijR8v";
+
+    assert.strictEqual(
+      endcode_public_key(
+        get_public_key_buf_from_ssh_ed25519_public_key(validKey),
+        false
+      ),
+      validKey
+    );
+  });
 });
 
 describe(`decode_ssh_privatekey secret`, () => {
