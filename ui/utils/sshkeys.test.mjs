@@ -56,7 +56,7 @@ describe(`endcode_public_key`, () => {
     assert.strictEqual(
       endcode_public_key(
         get_public_key_buf_from_ssh_ed25519_public_key(validKey),
-        false
+        true
       ),
       validKey
     );
