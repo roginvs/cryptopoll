@@ -22,7 +22,7 @@ function startWithPrivateKey(privateKey) {
 
   const publicKeyBuf = getPublicKeyFromPrivateKey(privateKey);
 
-  public_key_el.innerText = endcode_public_key(publicKeyBuf);
+  public_key_el.innerText = endcode_public_key(publicKeyBuf, true);
   public_key_el.style.display = "";
 
   const message_el = /** @type {HTMLTextAreaElement} */ (byId("message"));
