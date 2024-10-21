@@ -101,4 +101,7 @@ export const wasm = /**
  * }}
  */ (instance.exports);
 
-export const memoryView = new Uint8Array(memory.buffer);
+export function getMemoryView() {
+  // WebAssembly.Memory.buffer can change when memory grows
+  return new Uint8Array(memory.buffer);
+}
